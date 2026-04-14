@@ -1,6 +1,6 @@
 package Alvaro;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class archivos_adjuntos extends interfaces{
 

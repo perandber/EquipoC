@@ -1,6 +1,6 @@
 package Perceval;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class tareas_mantenimineto extends interfaces{
 

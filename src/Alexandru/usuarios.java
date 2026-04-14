@@ -1,6 +1,6 @@
 package Alexandru;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class usuarios extends interfaces{
 

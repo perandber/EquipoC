@@ -1,6 +1,6 @@
 package Sergio;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class analisis_maquinas extends interfaces{
 

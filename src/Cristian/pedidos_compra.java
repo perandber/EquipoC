@@ -1,6 +1,6 @@
 package Cristian;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class pedidos_compra extends interfaces{
 

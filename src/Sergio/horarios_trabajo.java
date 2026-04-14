@@ -1,6 +1,6 @@
 package Sergio;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class horarios_trabajo extends interfaces{
 

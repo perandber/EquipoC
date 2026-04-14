@@ -1,6 +1,6 @@
 package Alvaro;
 
-import Menu.interfaces;
+import Comun.interfaces;
 
 public class ejecuciones_mantenimiento extends interfaces{
 
