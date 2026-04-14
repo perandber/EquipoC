@@ -1,8 +1,8 @@
-package Alvaro;
+package Sergio;
 
 import Comun.interfaces;
 
-public class herramientas extends interfaces{
+public class incidenciasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

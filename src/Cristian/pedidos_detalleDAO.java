@@ -1,8 +1,8 @@
-package Sergio;
+package Cristian;
 
 import Comun.interfaces;
 
-public class proyectos_gnatt extends interfaces{
+public class pedidos_detalleDAO extends interfaces{
 
 	@Override
 	public void Menu() {

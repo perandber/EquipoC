@@ -2,7 +2,7 @@ package Alvaro;
 
 import Comun.interfaces;
 
-public class archivos_adjuntos extends interfaces{
+public class ejecuciones_mantenimientoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

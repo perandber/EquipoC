@@ -1,8 +1,8 @@
-package Sergio;
+package Cristian;
 
 import Comun.interfaces;
 
-public class horarios_trabajo extends interfaces{
+public class pedidos_compraDAO extends interfaces{
 
 	@Override
 	public void Menu() {

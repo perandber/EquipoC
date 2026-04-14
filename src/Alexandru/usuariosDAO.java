@@ -2,7 +2,7 @@ package Alexandru;
 
 import Comun.interfaces;
 
-public class piezas_repuesto extends interfaces{
+public class usuariosDAO extends interfaces{
 
 	@Override
 	public void Menu() {

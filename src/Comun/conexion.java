@@ -1,4 +1,4 @@
-package Menu;
+package Comun;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

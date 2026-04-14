@@ -2,7 +2,7 @@ package Perceval;
 
 import Comun.interfaces;
 
-public class tareas_mantenimineto extends interfaces{
+public class tareas_proyectoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

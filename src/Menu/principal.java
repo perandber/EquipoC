@@ -20,26 +20,26 @@ public class principal {
 	
 	
 	public static void main(String[] args) {
-		maquinas maquina = new maquinas();
-		piezas_repuesto repuesto = new piezas_repuesto();
-		proveedores_maquinas proveedores = new proveedores_maquinas();
-		usuarios usuario = new usuarios();
-		archivos_adjuntos archivos = new archivos_adjuntos();
-		ejecuciones_mantenimiento ejecuciones = new ejecuciones_mantenimiento();
-		gamas_mantenimineto gamas = new gamas_mantenimineto();
-		herramientas herramienta = new herramientas();
-		maquinas_piezas piezas = new maquinas_piezas();
-		ordenes_trabajo ordenes = new ordenes_trabajo();
-		pedidos_compra compra = new pedidos_compra();
-		pedidos_detalle detalles = new pedidos_detalle();
-		tareas_ejecutadas ejecutadas = new tareas_ejecutadas();
-		tareas_herramientas tareasHerramientas = new tareas_herramientas();
-		tareas_mantenimineto mantenimiento = new tareas_mantenimineto();
-		tareas_proyecto proyecto = new tareas_proyecto();
-		analisis_maquinas analisis = new analisis_maquinas();
-		horarios_trabajo horarios = new horarios_trabajo();
-		incidencias incidencia = new incidencias();
-		proyectos_gnatt gnatt = new proyectos_gnatt();
+		maquinasDAO maquina = new maquinasDAO();
+		piezas_repuestoDAO repuesto = new piezas_repuestoDAO();
+		proveedores_maquinasDAO proveedores = new proveedores_maquinasDAO();
+		usuariosDAO usuario = new usuariosDAO();
+		archivos_adjuntosDAO archivos = new archivos_adjuntosDAO();
+		ejecuciones_mantenimientoDAO ejecuciones = new ejecuciones_mantenimientoDAO();
+		gamas_manteniminetoDAO gamas = new gamas_manteniminetoDAO();
+		herramientasDAO herramienta = new herramientasDAO();
+		maquinas_piezasDAO piezas = new maquinas_piezasDAO();
+		ordenes_trabajoDAO ordenes = new ordenes_trabajoDAO();
+		pedidos_compraDAO compra = new pedidos_compraDAO();
+		pedidos_detalleDAO detalles = new pedidos_detalleDAO();
+		tareas_ejecutadasDAO ejecutadas = new tareas_ejecutadasDAO();
+		tareas_herramientasDAO tareasHerramientas = new tareas_herramientasDAO();
+		tareas_manteniminetoDAO mantenimiento = new tareas_manteniminetoDAO();
+		tareas_proyectoDAO proyecto = new tareas_proyectoDAO();
+		analisis_maquinasDAO analisis = new analisis_maquinasDAO();
+		horarios_trabajoDAO horarios = new horarios_trabajoDAO();
+		incidenciasDAO incidencia = new incidenciasDAO();
+		proyectos_gnattDAO gnatt = new proyectos_gnattDAO();
 		
 		int decision = 1000; //Opcion elejida por el usuario
 		
