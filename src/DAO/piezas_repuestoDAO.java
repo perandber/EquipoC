@@ -1,8 +1,10 @@
-package Alvaro;
+package DAO;
 
 import Comun.interfaces;
 
-public class gamas_manteniminetoDAO extends interfaces{
+/**
+ * @author Alexandru*/
+public class piezas_repuestoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

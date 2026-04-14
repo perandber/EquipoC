@@ -1,8 +1,10 @@
-package Cristian;
+package DAO;
 
 import Comun.interfaces;
 
-public class maquinas_piezasDAO extends interfaces{
+/**
+ * @author Alvaro*/
+public class herramientasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

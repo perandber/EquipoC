@@ -1,8 +1,10 @@
-package Perceval;
+package DAO;
 
 import Comun.interfaces;
 
-public class tareas_herramientasDAO extends interfaces{
+/**
+ * @author Sergio*/
+public class horarios_trabajoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

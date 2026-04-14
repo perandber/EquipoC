@@ -1,8 +1,10 @@
-package Sergio;
+package DAO;
 
 import Comun.interfaces;
 
-public class proyectos_gnattDAO extends interfaces{
+/**
+ * @author Alvaro*/
+public class gamas_manteniminetoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

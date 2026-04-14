@@ -2,11 +2,26 @@ package Menu;
 
 import java.util.Scanner;
 
-import Alexandru.*;
-import Alvaro.*;
-import Cristian.*;
-import Perceval.*;
-import Sergio.*;
+import DAO.analisis_maquinasDAO;
+import DAO.archivos_adjuntosDAO;
+import DAO.ejecuciones_mantenimientoDAO;
+import DAO.gamas_manteniminetoDAO;
+import DAO.herramientasDAO;
+import DAO.horarios_trabajoDAO;
+import DAO.incidenciasDAO;
+import DAO.maquinasDAO;
+import DAO.maquinas_piezasDAO;
+import DAO.ordenes_trabajoDAO;
+import DAO.pedidos_compraDAO;
+import DAO.pedidos_detalleDAO;
+import DAO.piezas_repuestoDAO;
+import DAO.proveedores_maquinasDAO;
+import DAO.proyectos_gnattDAO;
+import DAO.tareas_ejecutadasDAO;
+import DAO.tareas_herramientasDAO;
+import DAO.tareas_manteniminetoDAO;
+import DAO.tareas_proyectoDAO;
+import DAO.usuariosDAO;
 
 
 /**

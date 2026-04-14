@@ -1,8 +1,10 @@
-package Perceval;
+package DAO;
 
 import Comun.interfaces;
 
-public class tareas_manteniminetoDAO extends interfaces{
+/**
+ * @author Cristian*/
+public class maquinas_piezasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

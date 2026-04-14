@@ -1,8 +1,10 @@
-package Cristian;
+package DAO;
 
 import Comun.interfaces;
 
-public class ordenes_trabajoDAO extends interfaces{
+/**
+ * @author Sergio*/
+public class incidenciasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

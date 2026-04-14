@@ -1,8 +1,10 @@
-package Alexandru;
+package DAO;
 
 import Comun.interfaces;
 
-public class maquinasDAO extends interfaces{
+/**
+ * @author Perceval*/
+public class tareas_herramientasDAO extends interfaces{
 
 	@Override
 	public void Menu() {
