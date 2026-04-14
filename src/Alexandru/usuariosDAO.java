@@ -1,8 +1,8 @@
-package Perceval;
+package Alexandru;
 
 import Comun.interfaces;
 
-public class tareas_proyecto extends interfaces{
+public class usuariosDAO extends interfaces{
 
 	@Override
 	public void Menu() {

@@ -2,7 +2,7 @@ package Sergio;
 
 import Comun.interfaces;
 
-public class horarios_trabajo extends interfaces{
+public class incidenciasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

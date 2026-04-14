@@ -1,8 +1,8 @@
-package Alexandru;
+package Alvaro;
 
 import Comun.interfaces;
 
-public class piezas_repuesto extends interfaces{
+public class herramientasDAO extends interfaces{
 
 	@Override
 	public void Menu() {

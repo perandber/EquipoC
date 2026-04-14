@@ -1,8 +1,8 @@
-package Alexandru;
+package Cristian;
 
 import Comun.interfaces;
 
-public class usuarios extends interfaces{
+public class ordenes_trabajoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

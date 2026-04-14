@@ -2,7 +2,7 @@ package Cristian;
 
 import Comun.interfaces;
 
-public class maquinas_piezas extends interfaces{
+public class pedidos_compraDAO extends interfaces{
 
 	@Override
 	public void Menu() {

@@ -1,8 +1,8 @@
-package Sergio;
+package Perceval;
 
 import Comun.interfaces;
 
-public class incidencias extends interfaces{
+public class tareas_proyectoDAO extends interfaces{
 
 	@Override
 	public void Menu() {

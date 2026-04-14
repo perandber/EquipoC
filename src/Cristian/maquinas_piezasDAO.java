@@ -1,8 +1,8 @@
-package Perceval;
+package Cristian;
 
 import Comun.interfaces;
 
-public class tareas_herramientas extends interfaces{
+public class maquinas_piezasDAO extends interfaces{
 
 	@Override
 	public void Menu() {
