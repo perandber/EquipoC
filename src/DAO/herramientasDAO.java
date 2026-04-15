@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Comun.conexion;
@@ -24,18 +25,20 @@ public class herramientasDAO extends interfaces{
 
         do {
             System.out.println("\n--- MENU HERRAMIENTAS ---");
-            System.out.println("1. Listar");
-            System.out.println("2. Insertar");
-            System.out.println("3. Eliminar");
+            System.out.println("1. Mostrar");
+            System.out.println("2. Crear");
+            System.out.println("3. Borrar");
+            System.out.println("4. Modificar");
             System.out.println("0. Salir");
             System.out.print("Opcion: ");
 
             opcion = sc.nextInt();
 
             switch (opcion) {
-                case 1 -> listar();
-                case 2 -> insertar();
-                case 3 -> eliminar();
+                case 1 -> Mostrar();
+                case 2 -> Crear();
+                case 3 -> Borrar();
+                case 4 -> Modificar();
                 case 0 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opcion no valida");
             }
@@ -43,9 +46,23 @@ public class herramientasDAO extends interfaces{
         } while (opcion != 0);
     }
 
-    // LISTAR
-    public void listar() {
+    // MOSTRAR
+    @Override
+    public boolean Mostrar() {
+        ArrayList<Object> lista = Recibir();
 
+        for (Object obj : lista) {
+            System.out.println(obj);
+        }
+
+        return true;
+    }
+
+    // RECIBIR
+    @Override
+    public ArrayList<Object> Recibir() {
+
+        ArrayList<Object> lista = new ArrayList<>();
         String sql = "SELECT * FROM herramientas";
 
         try (Connection c = con.Conectar();
@@ -53,20 +70,29 @@ public class herramientasDAO extends interfaces{
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                System.out.println(
+
+                String dato =
                         rs.getInt("id_herramienta") + " - " +
                         rs.getString("nombre") + " - " +
-                        rs.getString("estado")
-                );
+                        rs.getString("tipo") + " - " +
+                        rs.getString("codigo_interno") + " - " +
+                        rs.getString("estado") + " - " +
+                        rs.getString("ubicacion") + " - " +
+                        rs.getBoolean("activa");
+
+                lista.add(dato);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return lista;
     }
 
-    // INSERTAR
-    public void insertar() {
+    // CREAR
+    @Override
+    protected boolean Crear() {
 
         sc.nextLine();
 
@@ -101,15 +127,17 @@ public class herramientasDAO extends interfaces{
             ps.setBoolean(6, activa);
 
             ps.executeUpdate();
-            System.out.println("Insertado correctamente");
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    // ELIMINAR
-    public void eliminar() {
+    // BORRAR
+    @Override
+    protected boolean Borrar() {
 
         System.out.print("ID a eliminar: ");
         int id = sc.nextInt();
@@ -121,11 +149,43 @@ public class herramientasDAO extends interfaces{
 
             ps.setInt(1, id);
             ps.executeUpdate();
-
-            System.out.println("Eliminado correctamente");
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    // MODIFICAR
+    @Override
+    protected boolean Modificar() {
+
+        System.out.print("ID a modificar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Nuevo nombre: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Nuevo estado: ");
+        String estado = sc.nextLine();
+
+        String sql = "UPDATE herramientas SET nombre = ?, estado = ? WHERE id_herramienta = ?";
+
+        try (Connection c = con.Conectar();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, nombre);
+            ps.setString(2, estado);
+            ps.setInt(3, id);
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
