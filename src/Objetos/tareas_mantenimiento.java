@@ -1,8 +1,8 @@
 package Objetos;
 
-/**@author Perceval
- * Objeto a construir 
- * Incluye el objeto "planes mantenimiento"*/
+/**Objeto a construir 
+ * Incluye el objeto "planes mantenimiento"
+ * @author Perceval*/
 public class tareas_mantenimiento {
 
 	private int id;
@@ -61,90 +61,93 @@ public class tareas_mantenimiento {
 	}
 
 
-	//Getters y setters
-	private planes_mantenimiento getPlan() {
+	public planes_mantenimiento getPlan() {
 		return plan;
 	}
 
 
-	private void setPlan(planes_mantenimiento plan) {
+	public void setPlan(planes_mantenimiento plan) {
 		this.plan = plan;
 	}
 
 
-	private String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
 
-	private void setDescripcion(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
 
-	private int getOrden() {
+	public int getOrden() {
 		return orden;
 	}
 
 
-	private void setOrden(int orden) {
+	public void setOrden(int orden) {
 		this.orden = orden;
 	}
 
 
-	private String getInstrucciones() {
+	public String getInstrucciones() {
 		return instrucciones;
 	}
 
 
-	private void setInstrucciones(String instrucciones) {
+	public void setInstrucciones(String instrucciones) {
 		this.instrucciones = instrucciones;
 	}
 
 
-	private boolean isRequiereEpi() {
+	public boolean isRequiereEpi() {
 		return requiereEpi;
 	}
 
 
-	private void setRequiereEpi(boolean requiereEpi) {
+	public void setRequiereEpi(boolean requiereEpi) {
 		this.requiereEpi = requiereEpi;
 	}
 
 
-	private String getEpisNecesarios() {
+	public String getEpisNecesarios() {
 		return episNecesarios;
 	}
 
 
-	private void setEpisNecesarios(String episNecesarios) {
+	public void setEpisNecesarios(String episNecesarios) {
 		this.episNecesarios = episNecesarios;
 	}
 
 
-	private String getReglasSeguridad() {
+	public String getReglasSeguridad() {
 		return reglasSeguridad;
 	}
 
 
-	private void setReglasSeguridad(String reglasSeguridad) {
+	public void setReglasSeguridad(String reglasSeguridad) {
 		this.reglasSeguridad = reglasSeguridad;
 	}
 
 
-	private String getMedioAmbiente() {
+	public String getMedioAmbiente() {
 		return medioAmbiente;
 	}
 
 
-	private void setMedioAmbiente(String medioAmbiente) {
+	public void setMedioAmbiente(String medioAmbiente) {
 		this.medioAmbiente = medioAmbiente;
 	}
 
 
-	private int getId() {
+	public int getId() {
 		return id;
 	}
+
+
+	//Getters y setters
+	
 	
 	
 }

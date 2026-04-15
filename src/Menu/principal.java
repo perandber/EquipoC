@@ -25,8 +25,8 @@ import DAO.usuariosDAO;
 
 
 /**
- * @author Perceval
  * Menu para elegir a que tabla acceder
+ * @author Perceval
  */
 public class principal {
 

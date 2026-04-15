@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/** @author Perceval
- * Conexion a la base de datos externa */
+/** Conexion a la base de datos externa
+ * @author Perceval */
 public class conexion {
 
     //Base de datos

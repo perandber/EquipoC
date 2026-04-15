@@ -13,7 +13,8 @@ import Objetos.planes_mantenimiento;
 import Objetos.tareas_mantenimiento;
 
 /**
- * @author Perceval*/
+ * @author Perceval
+ * Manejar, crear y borrar el objeto del mismo nombre*/
 public class tareas_mantenimientoDAO extends interfaces{
 	ArrayList<tareas_mantenimiento> tareas = new ArrayList<tareas_mantenimiento>(); 
 	ArrayList<planes_mantenimiento> planes = new ArrayList<planes_mantenimiento>();
@@ -135,18 +136,25 @@ public class tareas_mantenimientoDAO extends interfaces{
 	@Override
 	protected boolean Crear() {
 		//Recibir objetos de la clase agregada
-		//planes = planes_manteniminetoDAO.Recibir();
+		planes = planes_manteniminetoDAO.Recibir();
+		//Recibir objetos de la clase
+		tareas = Recibir();
 		
 		//Datos a pedir
+		int id;
 		planes_mantenimiento plan;
 		String descripcion;
 		int orden;
-		String instruciones; //Opcional
+		String instruciones = null; //Opcional
 		boolean requiereEpis;
-		String epis; //Opcional, depende de requiereEpis
-		String seguridad; //Opcional
-		String medioAmbiente; //Opcional
+		String epis = null; //Opcional, depende de requiereEpis
+		String seguridad = null; //Opcional
+		String medioAmbiente = null; //Opcional
 			
+		//Recibit id de la tarea 
+		/*(No se si el profe queria que lo recibieros o lo hicieramos automatico
+		 * Pero por el odio que parece tenerle a los autoincrementales, decidi recibirlo)*/
+		id = IntroducirIdNueva();
 		
 		//Recibir idPlan
 		plan = IntroducirIdPlan();
@@ -179,14 +187,90 @@ public class tareas_mantenimientoDAO extends interfaces{
 		medioAmbiente = IntroducirReglasMedioAmbiente();
 		
 		//Añadir en local
-		boolean exito = tareas.add(new tareas_mantenimiento(orden, plan, medioAmbiente, orden, medioAmbiente, exito, medioAmbiente, medioAmbiente, medioAmbiente));
+		boolean exito = tareas.add(new tareas_mantenimiento(id, plan, descripcion, orden, instruciones, requiereEpis, epis, seguridad, medioAmbiente));
+		
+		//Intentar introducir en la base de datos
+		if (exito) {
+			Connection con = conexion.Conectar();
+            Statement stat = null;
+            
+            try {
+            	stat = con.createStatement();
+            	stat.executeUpdate("insert into tareas_mantenimiento"
+            			+ " (id_tarea, id_plan, descripcion, orden, instrucciones_detalladas, requiere_epi, epis_necesarios, reglas_seguirdad, reglas_medio_ambiente)"
+            			+ " ('"+id+"', '"+plan.getId+"', '"+descripcion+"', '"+orden+"', '"+instruciones+"', '"+requiereEpis+"', '"+epis+"', '"+seguridad+"', , '"+medioAmbiente+"')");
+            } catch(SQLException e) {
+            	System.out.println("Error al insertar datos en la base de datos externa");
+            } finally {
+            	
+            	try {
+            		if (stat!=null){
+            			stat.close();
+                    } 
+                    con.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar conexion");
+                    e.printStackTrace();
+                }
+            }
+            
+		} else {
+			System.out.print("Error respecto a los datos introducidos");
+		}
+		
 		return true;
 		
 	}
 
 	@Override
 	protected boolean Borrar() {
-		return false;
+		//Recibir objetos de la clase agregada
+		planes = planes_manteniminetoDAO.Recibir();
+		//Recibir objetos de la clase
+		tareas = Recibir();
+				
+		//Datos a borrar
+		tareas_mantenimiento tarea;
+		
+		tarea = IntroducirIdExistente();
+		
+		//¿Usuario a cancelado la operacion?
+		if (tarea == null) {
+			return false;
+		}
+		
+		//Borrar en local
+		boolean exito = tareas.remove(tarea);
+		
+		//Intentar borrar en base de datos externa
+		
+		Connection con = conexion.Conectar();
+        Statement stat = null;
+        
+        if (exito) {
+        	try {
+            	
+            	stat = con.createStatement();
+            	stat.executeUpdate("delete from tareas_mantenimiento where id_tarea= '"+tarea.getId()+"'");
+            	System.out.println("Borrado exitoso");
+            } catch (SQLException e) {
+            	System.out.println("Error al borrar datos en la base de datos");
+            	e.printStackTrace();
+            } finally {
+            	try {
+                    if (stat!=null){
+                        stat.close();
+                    }            
+                    con.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar conexion");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+        	System.out.println("No encontrado");
+        }
+		return true;
 	}
 
 
@@ -199,7 +283,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 	@Override
 	public boolean Mostrar() {
 		tareas = Recibir();
-		System.out.println("Tareas de mantenimiento");
+		System.out.println("--Tareas de mantenimiento--");
 		for (tareas_mantenimiento tarea : tareas) {
 			System.out.println(tarea);
 		}
@@ -235,7 +319,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 			repetir = false;
 			//Comprobar si existe una tarea con la misma clave principal
 			for (tareas_mantenimiento tareaTest : tareas) {
-				if (tareaTest.getId == id) {
+				if (tareaTest.getId() == id) {
 					System.out.println("Tarea con esa id ya existente");
 					repetir = true;
 				}
@@ -244,6 +328,51 @@ public class tareas_mantenimientoDAO extends interfaces{
 		} while (repetir);
 		
 		return id;
+	}
+	
+	/**El usuario introduce una id de la tarea que ya exista
+	 * @return la id introducida*/
+	private tareas_mantenimiento IntroducirIdExistente() {
+		//Variable a devolver
+		tareas_mantenimiento tarea;
+		int id = 0;
+		
+		//Repetir el bucle pidiendo al usuario informacion
+		boolean repetir = true;
+				
+		do {
+			try {
+				//Pedir la informacion
+				System.out.print("ID de la tarea (0 para cancelar):");
+				id = Integer.parseInt(sc.nextLine());
+			} catch (java.lang.NumberFormatException e) {
+				//Error si no es un numero
+				System.out.println("Introduzca un numero");
+			}
+			
+			if (id == 0) {
+				//Usuario elejio cancelar la operacion
+				System.out.println("Cancelando");
+				return null;
+			}
+			
+			//Comprobaciones
+			//Comprobar si existe un plan con la clave principal
+			for (tareas_mantenimiento tareaTest : tareas) {
+				if (tareaTest.getId() == id) {
+					//Existe una tarea con esa id
+					tarea = tareaTest;
+					repetir = false;
+				}
+			}
+			if (repetir && id != 0) {
+				//No se encontro ningun plan con la id introducida y no cancelo la operacion
+				System.out.println("No existe ninguna tarea con esa id");
+			}
+			
+		} while (repetir);
+		
+		return tarea;
 	}
 	
 	/**El usuario introduce una id de plan
