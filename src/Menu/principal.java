@@ -19,7 +19,7 @@ import DAO.proveedores_maquinasDAO;
 import DAO.proyectos_gnattDAO;
 import DAO.tareas_ejecutadasDAO;
 import DAO.tareas_herramientasDAO;
-import DAO.tareas_manteniminetoDAO;
+import DAO.tareas_mantenimientoDAO;
 import DAO.tareas_proyectoDAO;
 import DAO.usuariosDAO;
 
@@ -49,7 +49,7 @@ public class principal {
 		pedidos_detalleDAO detalles = new pedidos_detalleDAO();
 		tareas_ejecutadasDAO ejecutadas = new tareas_ejecutadasDAO();
 		tareas_herramientasDAO tareasHerramientas = new tareas_herramientasDAO();
-		tareas_manteniminetoDAO mantenimiento = new tareas_manteniminetoDAO();
+		tareas_mantenimientoDAO mantenimiento = new tareas_mantenimientoDAO();
 		tareas_proyectoDAO proyecto = new tareas_proyectoDAO();
 		analisis_maquinasDAO analisis = new analisis_maquinasDAO();
 		horarios_trabajoDAO horarios = new horarios_trabajoDAO();
