@@ -31,8 +31,9 @@ public class tareas_mantenimientoDAO extends interfaces{
 		ResultSet rs = null;
 		
 		//Recibir objetos de la clase agregada
-		planes = planes_manteniminetoDAO.Recibir();
+		//planes = planes_manteniminetoDAO.Recibir();
 		
+		//Crear query
 		try {
 			stat = con.createStatement();
 			
@@ -40,12 +41,28 @@ public class tareas_mantenimientoDAO extends interfaces{
 			rs = stat.executeQuery ("select * from tareas_mantenimiento");
 			
 			//Bucle, una iteracion por cada fila recibida
-			
-			while (rs.next) {
+			while (rs.next()) {
+				int id_tarea = rs.getInt(1);
+				int id_plan = rs.getInt(2);
+				String descripcion = rs.getString(3);
+				int orden = rs.getInt(4);
+				String instruciones = rs.getString(5);
+				boolean requiereEpi = rs.getBoolean(6);
+				String epis = rs.getString(7);
+				String seguridad = rs.getString(8);
+				String medioAmbiente = rs.getString(9);
 				
+				planes_mantenimiento plan;
+				for (planes_mantenimiento planTest : planes) {
+					if (plan.getId = id_plan) {
+						plan = planTest;
+					}
+				}
+				
+				tareas.add(new tareas_mantenimiento(id_tarea, plan, descripcion, orden, instruciones, requiereEpi, epis, seguridad, medioAmbiente));
 			}
 		} catch (SQLException e) {
-			System.out.println("Error al intentar recibir informacion de la base de datos")
+			System.out.println("Error al intentar recibir informacion de la base de datos");
 		} finally {
 			
 			try {

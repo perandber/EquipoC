@@ -35,6 +35,92 @@ public class tareas_mantenimiento {
 		this.reglasSeguridad = reglasSeguridad;
 		this.medioAmbiente = medioAmbiente;
 	}
+
+
+	//Getters y setters
+	private planes_mantenimiento getPlan() {
+		return plan;
+	}
+
+
+	private void setPlan(planes_mantenimiento plan) {
+		this.plan = plan;
+	}
+
+
+	private String getDescripcion() {
+		return descripcion;
+	}
+
+
+	private void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+	private int getOrden() {
+		return orden;
+	}
+
+
+	private void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+
+	private String getInstrucciones() {
+		return instrucciones;
+	}
+
+
+	private void setInstrucciones(String instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+
+
+	private boolean isRequiereEpi() {
+		return requiereEpi;
+	}
+
+
+	private void setRequiereEpi(boolean requiereEpi) {
+		this.requiereEpi = requiereEpi;
+	}
+
+
+	private String getEpisNecesarios() {
+		return episNecesarios;
+	}
+
+
+	private void setEpisNecesarios(String episNecesarios) {
+		this.episNecesarios = episNecesarios;
+	}
+
+
+	private String getReglasSeguridad() {
+		return reglasSeguridad;
+	}
+
+
+	private void setReglasSeguridad(String reglasSeguridad) {
+		this.reglasSeguridad = reglasSeguridad;
+	}
+
+
+	private String getMedioAmbiente() {
+		return medioAmbiente;
+	}
+
+
+	private void setMedioAmbiente(String medioAmbiente) {
+		this.medioAmbiente = medioAmbiente;
+	}
+
+
+	private int getId() {
+		return id;
+	}
 	
 	
 }
