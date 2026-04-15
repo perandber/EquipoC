@@ -4,7 +4,7 @@ import Comun.interfaces;
 
 /**
  * @author Perceval*/
-public class tareas_manteniminetoDAO extends interfaces{
+public class tareas_mantenimientoDAO extends interfaces{
 
 	@Override
 	public void Menu() {
@@ -12,4 +12,9 @@ public class tareas_manteniminetoDAO extends interfaces{
 		
 	}
 
+	public void Mostrar() {
+		
+	}
+	
+	public void 
 }

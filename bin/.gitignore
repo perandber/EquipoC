@@ -1,2 +1,4 @@
 /Objetos/
-*.class
+/DAO/
+/Menu/
+/Comun/
