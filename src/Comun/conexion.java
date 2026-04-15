@@ -10,13 +10,13 @@ public class conexion {
 
     //Base de datos
     /**[Tipo de base de datos] :// [direccion ip del servidor] : [puerto] / [nombre de base de datos]*/
-    final private String dir = "jdbc:mariadb://172.18.50.57:3306/intermodular";
+    final private static String dir = "jdbc:mariadb://172.18.50.57:3306/intermodular";
     /**nombre de usario a usar*/
-    final private String user = "admin";
+    final private static String user = "admin";
     /**contraseña de usario a usar*/
-    final private String pwd = "Perceval1";  
+    final private static String pwd = "Perceval1";  
     
-	public Connection Conectar() {
+	public static Connection Conectar() {
 		Connection conexion = null;
 		
 		//Iniciar la conexion

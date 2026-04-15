@@ -7,7 +7,7 @@ import java.util.ArrayList;
 */
 public abstract class interfaces {
 
-	/**Menu para mostrar al usuario todas las opciones disponbibles*/
+	/**Menu para mostrar al usuario todas las opciones disponibles*/
 	public abstract void Menu();
 	
 	/**Select de todos los objetos
@@ -17,10 +17,10 @@ public abstract class interfaces {
 	
 	/**No accedido por los usuarios
 	 * usado para recebir todos los objetos del tipo
-	 * @return false si fallo
+	 * @return arraylist con todos los objetos recibidos
 	 */
 	public abstract ArrayList<Object> Recibir();
-	
+		
 	/**Crear un objeto
 	 * @return false si fallo*/
 	protected abstract boolean Crear();
