@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import Comun.conexion;
 import Comun.interfaces;
+import Objetos.herramientas;
 
 /**
  * @author Alvaro*/
@@ -21,44 +22,35 @@ public class herramientasDAO extends interfaces{
     @Override
     public void Menu() {
 
-        int opcion;
+        int op;
 
         do {
-            System.out.println("\n--- MENU HERRAMIENTAS ---");
+            System.out.println("\n--- HERRAMIENTAS ---");
             System.out.println("1. Mostrar");
             System.out.println("2. Crear");
             System.out.println("3. Borrar");
             System.out.println("4. Modificar");
             System.out.println("0. Salir");
-            System.out.print("Opcion: ");
 
-            opcion = sc.nextInt();
+            op = sc.nextInt();
 
-            switch (opcion) {
+            switch (op) {
                 case 1 -> Mostrar();
                 case 2 -> Crear();
                 case 3 -> Borrar();
                 case 4 -> Modificar();
-                case 0 -> System.out.println("Saliendo...");
-                default -> System.out.println("Opcion no valida");
             }
 
-        } while (opcion != 0);
+        } while (op != 0);
     }
 
-    // MOSTRAR
     @Override
     public boolean Mostrar() {
         ArrayList<Object> lista = Recibir();
-
-        for (Object obj : lista) {
-            System.out.println(obj);
-        }
-
+        lista.forEach(System.out::println);
         return true;
     }
 
-    // RECIBIR
     @Override
     public ArrayList<Object> Recibir() {
 
@@ -71,16 +63,17 @@ public class herramientasDAO extends interfaces{
 
             while (rs.next()) {
 
-                String dato =
-                        rs.getInt("id_herramienta") + " - " +
-                        rs.getString("nombre") + " - " +
-                        rs.getString("tipo") + " - " +
-                        rs.getString("codigo_interno") + " - " +
-                        rs.getString("estado") + " - " +
-                        rs.getString("ubicacion") + " - " +
-                        rs.getBoolean("activa");
+                herramientas h = new herramientas(
+                        rs.getInt("id_herramienta"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo"),
+                        rs.getString("codigo_interno"),
+                        rs.getString("estado"),
+                        rs.getString("ubicacion"),
+                        rs.getBoolean("activa")
+                );
 
-                lista.add(dato);
+                lista.add(h);
             }
 
         } catch (SQLException e) {
@@ -90,7 +83,6 @@ public class herramientasDAO extends interfaces{
         return lista;
     }
 
-    // CREAR
     @Override
     protected boolean Crear() {
 
@@ -102,19 +94,19 @@ public class herramientasDAO extends interfaces{
         System.out.print("Tipo: ");
         String tipo = sc.nextLine();
 
-        System.out.print("Codigo interno: ");
+        System.out.print("Codigo: ");
         String codigo = sc.nextLine();
 
         System.out.print("Estado: ");
         String estado = sc.nextLine();
 
         System.out.print("Ubicacion: ");
-        String ubicacion = sc.nextLine();
+        String ubi = sc.nextLine();
 
-        System.out.print("Activa (true/false): ");
+        System.out.print("Activa: ");
         boolean activa = sc.nextBoolean();
 
-        String sql = "INSERT INTO herramientas (nombre, tipo, codigo_interno, estado, ubicacion, activa) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO herramientas VALUES (NULL,?,?,?,?,?,?)";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -123,7 +115,7 @@ public class herramientasDAO extends interfaces{
             ps.setString(2, tipo);
             ps.setString(3, codigo);
             ps.setString(4, estado);
-            ps.setString(5, ubicacion);
+            ps.setString(5, ubi);
             ps.setBoolean(6, activa);
 
             ps.executeUpdate();
@@ -135,14 +127,13 @@ public class herramientasDAO extends interfaces{
         }
     }
 
-    // BORRAR
     @Override
     protected boolean Borrar() {
 
-        System.out.print("ID a eliminar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
 
-        String sql = "DELETE FROM herramientas WHERE id_herramienta = ?";
+        String sql = "DELETE FROM herramientas WHERE id_herramienta=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -157,28 +148,23 @@ public class herramientasDAO extends interfaces{
         }
     }
 
-    // MODIFICAR
     @Override
     protected boolean Modificar() {
 
-        System.out.print("ID a modificar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
         sc.nextLine();
-
-        System.out.print("Nuevo nombre: ");
-        String nombre = sc.nextLine();
 
         System.out.print("Nuevo estado: ");
         String estado = sc.nextLine();
 
-        String sql = "UPDATE herramientas SET nombre = ?, estado = ? WHERE id_herramienta = ?";
+        String sql = "UPDATE herramientas SET estado=? WHERE id_herramienta=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
-            ps.setString(1, nombre);
-            ps.setString(2, estado);
-            ps.setInt(3, id);
+            ps.setString(1, estado);
+            ps.setInt(2, id);
 
             ps.executeUpdate();
             return true;

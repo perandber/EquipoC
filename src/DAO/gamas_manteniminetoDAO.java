@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import Comun.conexion;
 import Comun.interfaces;
+import Objetos.gamas_mantenimiento;
 
 /**
  * @author Alvaro*/
@@ -17,14 +18,14 @@ public class gamas_manteniminetoDAO extends interfaces{
 
 	Scanner sc = new Scanner(System.in);
     conexion con = new conexion();
-
+    
     @Override
     public void Menu() {
 
-        int opcion;
+        int op;
 
         do {
-            System.out.println("\n--- MENU GAMAS MANTENIMIENTO ---");
+            System.out.println("\n--- GAMAS MANTENIMIENTO ---");
             System.out.println("1. Mostrar");
             System.out.println("2. Crear");
             System.out.println("3. Borrar");
@@ -32,9 +33,9 @@ public class gamas_manteniminetoDAO extends interfaces{
             System.out.println("0. Salir");
             System.out.print("Opcion: ");
 
-            opcion = sc.nextInt();
+            op = sc.nextInt();
 
-            switch (opcion) {
+            switch (op) {
                 case 1 -> Mostrar();
                 case 2 -> Crear();
                 case 3 -> Borrar();
@@ -43,23 +44,15 @@ public class gamas_manteniminetoDAO extends interfaces{
                 default -> System.out.println("Opcion no valida");
             }
 
-        } while (opcion != 0);
+        } while (op != 0);
     }
 
-    // MOSTRAR
     @Override
     public boolean Mostrar() {
-
-        ArrayList<Object> lista = Recibir();
-
-        for (Object obj : lista) {
-            System.out.println(obj);
-        }
-
+        Recibir().forEach(System.out::println);
         return true;
     }
 
-    // RECIBIR
     @Override
     public ArrayList<Object> Recibir() {
 
@@ -72,14 +65,15 @@ public class gamas_manteniminetoDAO extends interfaces{
 
             while (rs.next()) {
 
-                String dato =
-                        rs.getInt("id_gama") + " - " +
-                        rs.getString("nombre") + " - " +
-                        rs.getString("tipo_mantenimiento") + " - " +
-                        rs.getString("tipo_gama") + " - " +
-                        rs.getString("descripcion");
+                gamas_mantenimiento g = new gamas_mantenimiento(
+                        rs.getInt("id_gama"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo_mantenimiento"),
+                        rs.getString("tipo_gama"),
+                        rs.getString("descripcion")
+                );
 
-                lista.add(dato);
+                lista.add(g);
             }
 
         } catch (SQLException e) {
@@ -89,7 +83,6 @@ public class gamas_manteniminetoDAO extends interfaces{
         return lista;
     }
 
-    // CREAR
     @Override
     protected boolean Crear() {
 
@@ -99,26 +92,22 @@ public class gamas_manteniminetoDAO extends interfaces{
         String nombre = sc.nextLine();
 
         System.out.print("Tipo mantenimiento: ");
-        String tipoMant = sc.nextLine();
+        String tipo = sc.nextLine();
 
         System.out.print("Tipo gama: ");
-        String tipoGama = sc.nextLine();
+        String gama = sc.nextLine();
 
-        System.out.print("Descripcion: ");
-        String descripcion = sc.nextLine();
-
-        String sql = "INSERT INTO gamas_mantenimiento (nombre, tipo_mantenimiento, tipo_gama, descripcion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO gamas_mantenimiento VALUES (NULL,?,?,?,?)";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setString(1, nombre);
-            ps.setString(2, tipoMant);
-            ps.setString(3, tipoGama);
-            ps.setString(4, descripcion);
+            ps.setString(2, tipo);
+            ps.setString(3, gama);
+            ps.setString(4, "");
 
             ps.executeUpdate();
-            System.out.println("Insertado correctamente");
             return true;
 
         } catch (SQLException e) {
@@ -127,22 +116,19 @@ public class gamas_manteniminetoDAO extends interfaces{
         }
     }
 
-    // BORRAR
     @Override
     protected boolean Borrar() {
 
-        System.out.print("ID a eliminar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
 
-        String sql = "DELETE FROM gamas_mantenimiento WHERE id_gama = ?";
+        String sql = "DELETE FROM gamas_mantenimiento WHERE id_gama=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-
-            System.out.println("Eliminado correctamente");
             return true;
 
         } catch (SQLException e) {
@@ -151,36 +137,25 @@ public class gamas_manteniminetoDAO extends interfaces{
         }
     }
 
-    // MODIFICAR
     @Override
     protected boolean Modificar() {
 
-        System.out.print("ID a modificar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
         sc.nextLine();
 
         System.out.print("Nuevo nombre: ");
         String nombre = sc.nextLine();
 
-        System.out.print("Nuevo tipo mantenimiento: ");
-        String tipoMant = sc.nextLine();
-
-        System.out.print("Nueva descripcion: ");
-        String descripcion = sc.nextLine();
-
-        String sql = "UPDATE gamas_mantenimiento SET nombre = ?, tipo_mantenimiento = ?, descripcion = ? WHERE id_gama = ?";
+        String sql = "UPDATE gamas_mantenimiento SET nombre=? WHERE id_gama=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setString(1, nombre);
-            ps.setString(2, tipoMant);
-            ps.setString(3, descripcion);
-            ps.setInt(4, id);
+            ps.setInt(2, id);
 
             ps.executeUpdate();
-
-            System.out.println("Modificado correctamente");
             return true;
 
         } catch (SQLException e) {

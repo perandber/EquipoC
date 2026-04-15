@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import Comun.conexion;
 import Comun.interfaces;
+import Objetos.archivos_adjuntos;
 
 /**
  * @author Alvaro*/
@@ -17,14 +18,14 @@ public class archivos_adjuntosDAO extends interfaces{
 
 	Scanner sc = new Scanner(System.in);
     conexion con = new conexion();
-
+    
     @Override
     public void Menu() {
 
-        int opcion;
+        int op;
 
         do {
-            System.out.println("\n--- MENU ARCHIVOS ADJUNTOS ---");
+            System.out.println("\n--- ARCHIVOS ADJUNTOS ---");
             System.out.println("1. Mostrar");
             System.out.println("2. Crear");
             System.out.println("3. Borrar");
@@ -32,9 +33,9 @@ public class archivos_adjuntosDAO extends interfaces{
             System.out.println("0. Salir");
             System.out.print("Opcion: ");
 
-            opcion = sc.nextInt();
+            op = sc.nextInt();
 
-            switch (opcion) {
+            switch (op) {
                 case 1 -> Mostrar();
                 case 2 -> Crear();
                 case 3 -> Borrar();
@@ -43,26 +44,20 @@ public class archivos_adjuntosDAO extends interfaces{
                 default -> System.out.println("Opcion no valida");
             }
 
-        } while (opcion != 0);
+        } while (op != 0);
     }
 
-    //  MOSTRAR
     @Override
     public boolean Mostrar() {
-        ArrayList<Object> lista = Recibir();
-
-        for (Object obj : lista) {
-            System.out.println(obj);
-        }
-
+        Recibir().forEach(System.out::println);
         return true;
     }
 
-    //  RECIBIR
     @Override
     public ArrayList<Object> Recibir() {
 
         ArrayList<Object> lista = new ArrayList<>();
+
         String sql = "SELECT * FROM archivos_adjuntos";
 
         try (Connection c = con.Conectar();
@@ -70,12 +65,16 @@ public class archivos_adjuntosDAO extends interfaces{
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                String dato =
-                        rs.getInt("id_archivo") + " - " +
-                        rs.getString("nombre_archivo") + " - " +
-                        rs.getString("tipo_referencia");
 
-                lista.add(dato);
+                archivos_adjuntos a = new archivos_adjuntos(
+                        rs.getInt("id_archivo"),
+                        rs.getString("nombre_archivo"),
+                        rs.getString("tipo_referencia"),
+                        rs.getString("ruta_archivo"),
+                        rs.getInt("id_usuario_subida")
+                );
+
+                lista.add(a);
             }
 
         } catch (SQLException e) {
@@ -85,38 +84,25 @@ public class archivos_adjuntosDAO extends interfaces{
         return lista;
     }
 
-    //  CREAR
     @Override
     protected boolean Crear() {
 
         sc.nextLine();
 
-        System.out.print("Tipo referencia: ");
-        String tipo = sc.nextLine();
-
-        System.out.print("ID referencia: ");
-        int idRef = sc.nextInt();
-        sc.nextLine();
-
-        System.out.print("Nombre archivo: ");
+        System.out.print("Nombre: ");
         String nombre = sc.nextLine();
 
-        System.out.print("Ruta archivo: ");
+        System.out.print("Ruta: ");
         String ruta = sc.nextLine();
 
-        System.out.print("ID usuario: ");
-        int idUsuario = sc.nextInt();
-
-        String sql = "INSERT INTO archivos_adjuntos (tipo_referencia, id_referencia, nombre_archivo, ruta_archivo, id_usuario_subida) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO archivos_adjuntos VALUES (NULL,?,?,?,1)";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
-            ps.setString(1, tipo);
-            ps.setInt(2, idRef);
-            ps.setString(3, nombre);
-            ps.setString(4, ruta);
-            ps.setInt(5, idUsuario);
+            ps.setString(1, nombre);
+            ps.setString(2, "tarea");
+            ps.setString(3, ruta);
 
             ps.executeUpdate();
             return true;
@@ -127,14 +113,13 @@ public class archivos_adjuntosDAO extends interfaces{
         }
     }
 
-    //  BORRAR
     @Override
     protected boolean Borrar() {
 
-        System.out.print("ID a eliminar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
 
-        String sql = "DELETE FROM archivos_adjuntos WHERE id_archivo = ?";
+        String sql = "DELETE FROM archivos_adjuntos WHERE id_archivo=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -149,18 +134,17 @@ public class archivos_adjuntosDAO extends interfaces{
         }
     }
 
-    //  MODIFICAR
     @Override
     protected boolean Modificar() {
 
-        System.out.print("ID a modificar: ");
+        System.out.print("ID: ");
         int id = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("Nuevo nombre archivo: ");
+        System.out.print("Nuevo nombre: ");
         String nombre = sc.nextLine();
 
-        String sql = "UPDATE archivos_adjuntos SET nombre_archivo = ? WHERE id_archivo = ?";
+        String sql = "UPDATE archivos_adjuntos SET nombre_archivo=? WHERE id_archivo=?";
 
         try (Connection c = con.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
