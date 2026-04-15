@@ -74,7 +74,7 @@ public class principal {
 					+ "10. Pedidos compra\n"
 					+ "11. Pedido detalle\n"
 					+ "12. Piezas repuesto\n"
-					+ "13. Planes mantenimiento [No disponible]\n" //Esta al parecer no le toco a nadie
+					+ "13. Planes mantenimiento\n"
 					+ "14. Proveedores maquinas\n"
 					+ "15. Proyectos gantt\n"
 					+ "16. Analisis maquinas\n"

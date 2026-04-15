@@ -21,7 +21,7 @@ public class tareas_mantenimiento {
 	private String medioAmbiente;
 	
 	
-	//Constructores
+	//Constructor
 	/**Constructor completo*/
 	public tareas_mantenimiento(int id, planes_mantenimiento plan, String descripcion, int orden, String instrucciones,
 			boolean requiereEpi, String episNecesarios, String reglasSeguridad, String medioAmbiente) {
@@ -36,5 +36,5 @@ public class tareas_mantenimiento {
 		this.medioAmbiente = medioAmbiente;
 	}
 	
-	/***/
+	
 }
