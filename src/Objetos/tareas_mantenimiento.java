@@ -21,7 +21,6 @@ public class tareas_mantenimiento {
 	private String medioAmbiente;
 	
 	
-	//Constructor
 	/**Constructor completo*/
 	public tareas_mantenimiento(int id, planes_mantenimiento plan, String descripcion, int orden, String instrucciones,
 			boolean requiereEpi, String episNecesarios, String reglasSeguridad, String medioAmbiente) {
@@ -34,6 +33,31 @@ public class tareas_mantenimiento {
 		this.episNecesarios = episNecesarios;
 		this.reglasSeguridad = reglasSeguridad;
 		this.medioAmbiente = medioAmbiente;
+	}
+
+
+	@Override
+	public String toString() {
+		String resultado = "id:"+id+descripcion+", orden:"+orden+"\n";
+		if (!instrucciones.isEmpty() &&  instrucciones != null) {
+			resultado.concat("instrucciones: ");
+			resultado.concat(instrucciones);
+		}
+		if (requiereEpi) {
+			resultado.concat("Requerido: ");
+			resultado.concat(episNecesarios);
+		}
+		if (!reglasSeguridad.isEmpty() &&  reglasSeguridad != null) {
+			resultado.concat("Reglas de seguridad: ");
+			resultado.concat(reglasSeguridad);
+		}
+		if (!medioAmbiente.isEmpty() &&  medioAmbiente != null) {
+			resultado.concat("Requisitos de medio ambiente: ");
+			resultado.concat(medioAmbiente);
+		}
+		resultado.concat("\n"+"plan: ");
+		resultado.concat(plan);
+		return resultado;
 	}
 
 
