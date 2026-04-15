@@ -1,15 +1,26 @@
 package Objetos;
 
+/*
+ * Clase que representa un archivo adjunto dentro del sistema.
+ * Permite asociar ficheros (imágenes, PDFs, documentos, etc.) a otros registros
+ * del sistema, como tareas u órdenes de mantenimiento.
+ *
+ * Cada archivo tiene un nombre, una ruta donde está guardado físicamente,
+ * el tipo de entidad al que está vinculado (tipo_referencia) y el ID del usuario
+ * que lo subió al sistema.
+ */
 public class archivos_adjuntos {
 
-    private int id_archivo;
-    private String nombre_archivo;
-    private String tipo_referencia;
-    private String ruta_archivo;
-    private int id_usuario_subida;
+    private int id_archivo;          // Identificador único del archivo en la base de datos
+    private String nombre_archivo;   // Nombre del archivo con su extensión (ej: "informe.pdf")
+    private String tipo_referencia;  // Entidad a la que está vinculado: "tarea", "orden", etc.
+    private String ruta_archivo;     // Ruta del sistema de archivos donde está guardado el fichero
+    private int id_usuario_subida;   // ID del usuario que subió este archivo
 
+    // Constructor vacío, necesario para crear objetos sin datos iniciales
     public archivos_adjuntos() {}
 
+    // Constructor completo: crea un archivo adjunto con todos sus datos de una vez
     public archivos_adjuntos(int id_archivo, String nombre_archivo,
                              String tipo_referencia, String ruta_archivo,
                              int id_usuario_subida) {
@@ -20,6 +31,7 @@ public class archivos_adjuntos {
         this.id_usuario_subida = id_usuario_subida;
     }
 
+    // Representación en texto del archivo para mostrar por consola
     @Override
     public String toString() {
         return id_archivo + " - " + nombre_archivo + " - " + tipo_referencia;

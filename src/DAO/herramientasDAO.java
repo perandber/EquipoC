@@ -12,13 +12,25 @@ import Comun.conexion;
 import Comun.interfaces;
 import Objetos.herramientas;
 
-/**
- * @author Alvaro*/
-public class herramientasDAO extends interfaces{
+/*
+ * Clase DAO (Data Access Object) de herramientas.
+ * Se encarga de toda la comunicación entre la aplicación y la tabla "herramientas"
+ * de la base de datos. Implementa las cuatro operaciones básicas: mostrar, crear,
+ * borrar y modificar. También incluye un menú interactivo por consola para usarlas.
+ *
+ * Extiende la clase "interfaces", que define los métodos que todo DAO debe implementar.
+ *
+ * @author Alvaro
+ */
+public class herramientasDAO extends interfaces {
 
-	Scanner sc = new Scanner(System.in);
-    conexion con = new conexion();
+    Scanner sc = new Scanner(System.in); // Lee la entrada del usuario por consola
+    conexion con = new conexion();       // Gestiona la conexión con la base de datos
 
+    /*
+     * Muestra un menú por consola con las opciones disponibles y ejecuta la acción
+     * que el usuario elija. El bucle se repite hasta que el usuario introduce 0 para salir.
+     */
     @Override
     public void Menu() {
 
@@ -44,6 +56,10 @@ public class herramientasDAO extends interfaces{
         } while (op != 0);
     }
 
+    /*
+     * Llama a Recibir() para obtener todas las herramientas de la base de datos
+     * y las imprime por consola una a una usando el método toString() de cada objeto.
+     */
     @Override
     public boolean Mostrar() {
         ArrayList<Object> lista = Recibir();
@@ -51,6 +67,11 @@ public class herramientasDAO extends interfaces{
         return true;
     }
 
+    /*
+     * Consulta toda la tabla "herramientas" en la base de datos y construye un objeto
+     * herramientas por cada fila. Devuelve todos esos objetos en una lista.
+     * Si ocurre algún error con la base de datos, lo muestra por consola.
+     */
     @Override
     public ArrayList<Object> Recibir() {
 
@@ -62,7 +83,6 @@ public class herramientasDAO extends interfaces{
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-
                 herramientas h = new herramientas(
                         rs.getInt("id_herramienta"),
                         rs.getString("nombre"),
@@ -72,7 +92,6 @@ public class herramientasDAO extends interfaces{
                         rs.getString("ubicacion"),
                         rs.getBoolean("activa")
                 );
-
                 lista.add(h);
             }
 
@@ -83,10 +102,15 @@ public class herramientasDAO extends interfaces{
         return lista;
     }
 
+    /*
+     * Pide al usuario que introduzca los datos de una nueva herramienta
+     * (nombre, tipo, código, estado, ubicación y si está activa)
+     * y la inserta en la base de datos. El ID lo genera automáticamente la BD.
+     */
     @Override
     protected boolean Crear() {
 
-        sc.nextLine();
+        sc.nextLine(); // Necesario para limpiar el salto de línea que queda del nextInt() anterior
 
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
@@ -127,6 +151,10 @@ public class herramientasDAO extends interfaces{
         }
     }
 
+    /*
+     * Pide al usuario el ID de la herramienta que quiere eliminar
+     * y borra ese registro de la base de datos.
+     */
     @Override
     protected boolean Borrar() {
 
@@ -148,12 +176,17 @@ public class herramientasDAO extends interfaces{
         }
     }
 
+    /*
+     * Pide al usuario el ID de una herramienta y su nuevo estado,
+     * y actualiza ese campo en la base de datos. Solo permite cambiar el estado,
+     * no el resto de datos de la herramienta.
+     */
     @Override
     protected boolean Modificar() {
 
         System.out.print("ID: ");
         int id = sc.nextInt();
-        sc.nextLine();
+        sc.nextLine(); // Limpia el buffer antes de leer el texto
 
         System.out.print("Nuevo estado: ");
         String estado = sc.nextLine();
