@@ -1,51 +1,63 @@
 package DAO;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import Comun.conexion; // Tu clase de conexión
 import Comun.interfaces;
-
 /**
  * @author Sergio*/
-public class analisis_maquinasDAO extends interfaces{
+public class analisis_maquinasDAO extends interfaces {
+    
+    // El scanner para pedir datos por consola
+    Scanner sc = new Scanner(System.in);
 
-	@Override
-	public void Menu() {
-		int opcion;
+    @Override
+    public void Menu() {
+        int opcion;
         do {
-            System.out.println("\n--- GESTIÓN ANÁLISIS DE MÁQUINAS ---");
-            System.out.println("1. Mostrar todos los registros");
-            System.out.println("2. Crear nuevo análisis");
-            System.out.println("3. Borrar registro");
-            System.out.println("4. Modificar valor de análisis");
-            System.out.println("0. Volver");
-            System.out.print("Selecciona: ");
-            opcion = sc.nextInt();
+            System.out.println("\n--- 16. ANALISIS DE MAQUINAS ---");
+            System.out.println("1. Mostrar todos los analisis");
+            System.out.println("2. Registrar nuevo analisis (Insert)");
+            System.out.println("3. Eliminar un analisis (Delete)");
+            System.out.println("0. Volver al menu principal");
+            System.out.print("Opcion: ");
+            
+            // Leemos la opción del usuario
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) { opcion = -1; }
 
             switch (opcion) {
                 case 1 -> Mostrar();
                 case 2 -> Crear();
                 case 3 -> Borrar();
-                case 4 -> Modificar();
             }
         } while (opcion != 0);
-	}
-	@Override
+    }
+
+    @Override
     public ArrayList<Object> Recibir() {
         ArrayList<Object> lista = new ArrayList<>();
-        // Orden SQL: Traer todos los datos de la tabla analisis_maquinas
+        // Esta es la orden que le enviamos a la base de datos
         String sql = "SELECT * FROM analisis_maquinas";
 
-        // El bloque try-with-resources cierra la conexión automáticamente
-        try (Connection c = con.Conectar();
+        // Abrimos la conexión usando tu método estático conexion.Conectar()
+        try (Connection c = conexion.Conectar(); 
              Statement st = c.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
+            // rs.next() va saltando de fila en fila de la base de datos
             while (rs.next()) {
-                // Juntamos todas las columnas en un solo String para mostrarlo fácil
-                String fila = rs.getInt("id_analisis") + " | Máquina ID: " + rs.getInt("id_maquina") + 
-                             " | Variable: " + rs.getString("nombre_variable") + " | Valor: " + rs.getDouble("valor") +
-                             " " + rs.getString("unidad_medida");
-                lista.add(fila);
+                // Creamos un texto con la información de la fila
+                String info = "ID: " + rs.getInt("id_analisis") + 
+                             " | Maquina: " + rs.getInt("id_maquina") + 
+                             " | Var: " + rs.getString("nombre_variable") + 
+                             " | Valor: " + rs.getDouble("valor") + " " + rs.getString("unidad_medida");
+                lista.add(info); // Lo guardamos en la lista
             }
         } catch (SQLException e) {
+            System.out.println("Error al recibir datos de analisis");
             e.printStackTrace();
         }
         return lista;
@@ -53,33 +65,45 @@ public class analisis_maquinasDAO extends interfaces{
 
     @Override
     public boolean Mostrar() {
-        ArrayList<Object> lista = Recibir();
-        if(lista.isEmpty()) System.out.println("No hay datos.");
-        for (Object obj : lista) System.out.println(obj);
+        // Llamamos a Recibir() para que nos de la lista de la BD
+        ArrayList<Object> datos = Recibir();
+        if (datos.isEmpty()) {
+            System.out.println("No hay registros en la tabla.");
+        } else {
+            // Imprimimos cada línea que guardamos en la lista
+            for (Object obj : datos) {
+                System.out.println(obj);
+            }
+        }
         return true;
     }
 
     @Override
     protected boolean Crear() {
-        // Pedimos los datos necesarios según las columnas del SQL
-        System.out.print("ID Máquina: "); int idM = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
-        System.out.print("Nombre variable (ej. Presion): "); String var = sc.nextLine();
-        System.out.print("Valor: "); double val = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Unidad (ej. bar, ºC): "); String uni = sc.nextLine();
+        // Pedimos los datos al usuario
+        System.out.print("ID de la maquina: ");
+        int idM = Integer.parseInt(sc.nextLine());
+        System.out.print("Nombre de la variable (ej. Presion): ");
+        String var = sc.nextLine();
+        System.out.print("Valor medido: ");
+        double val = Double.parseDouble(sc.nextLine());
+        System.out.print("Unidad de medida (ej. bar): ");
+        String uni = sc.nextLine();
 
-        // El ? sirve para evitar errores y ataques en la base de datos
+        // El SQL con '?' para que sea seguro. NOW() pone la fecha de hoy automáticamente.
         String sql = "INSERT INTO analisis_maquinas (id_maquina, nombre_variable, valor, unidad_medida, fecha_registro) VALUES (?, ?, ?, ?, NOW())";
 
-        try (Connection c = con.Conectar();
+        try (Connection c = conexion.Conectar();
              PreparedStatement ps = c.prepareStatement(sql)) {
+            
+            // Rellenamos los '?' en orden
             ps.setInt(1, idM);
             ps.setString(2, var);
             ps.setDouble(3, val);
             ps.setString(4, uni);
-            ps.executeUpdate();
-            System.out.println("Análisis guardado con éxito.");
+            
+            ps.executeUpdate(); // Ejecuta la inserción en la BD
+            System.out.println("Analisis guardado correctamente.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,31 +113,23 @@ public class analisis_maquinasDAO extends interfaces{
 
     @Override
     protected boolean Borrar() {
-        System.out.print("ID de análisis a eliminar: ");
-        int id = sc.nextInt();
+        System.out.print("Introduce el ID del analisis a borrar: ");
+        int id = Integer.parseInt(sc.nextLine());
+        
         String sql = "DELETE FROM analisis_maquinas WHERE id_analisis = ?";
-        try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+        try (Connection c = conexion.Conectar(); 
+             PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+            System.out.println("Registro eliminado.");
             return true;
-        } catch (SQLException e) { return false; }
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
-    @Override
-    protected boolean Modificar() {
-        System.out.print("ID de análisis a modificar: ");
-        int id = sc.nextInt();
-        System.out.print("Nuevo valor numérico: ");
-        double nuevoVal = sc.nextDouble();
-
-        String sql = "UPDATE analisis_maquinas SET valor = ? WHERE id_analisis = ?";
-        try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setDouble(1, nuevoVal);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            System.out.println("Valor actualizado.");
-            return true;
-        } catch (SQLException e) { return false; }
-    }
-
+    @Override protected boolean Modificar() {
+    	return false; 
+    	} 
 }
