@@ -12,9 +12,8 @@ import Comun.interfaces;
 import Objetos.planes_mantenimiento;
 import Objetos.tareas_mantenimiento;
 
-/**
- * @author Perceval
- * Manejar, crear y borrar el objeto del mismo nombre*/
+/** Manejar, crear y borrar el objeto del mismo nombre
+ * @author Perceval*/
 public class tareas_mantenimientoDAO extends interfaces{
 	ArrayList<tareas_mantenimiento> tareas = new ArrayList<tareas_mantenimiento>(); 
 	ArrayList<planes_mantenimiento> planes = new ArrayList<planes_mantenimiento>();
@@ -68,6 +67,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 			break;
 			case 5:
 				planesDAO.Mostrar();
+			break;
 			default:
 				//Opcion fuera del rango
 				System.out.println("Opcion incorrecta o no existente");
@@ -85,7 +85,10 @@ public class tareas_mantenimientoDAO extends interfaces{
 		ResultSet rs = null;
 		
 		//Recibir objetos de la clase agregada
-		//planes = planes_manteniminetoDAO.Recibir();
+		ArrayList<Object> planesTemp = planesDAO.Recibir();
+		for (Object plan : planesTemp) {
+			planes.add((planes_mantenimiento) plan);
+		}
 		
 		//Crear query
 		try {
@@ -163,6 +166,10 @@ public class tareas_mantenimientoDAO extends interfaces{
 		/*(No se si el profe queria que lo recibieros o lo hicieramos automatico
 		 * Pero por el odio que parece tenerle a los autoincrementales, decidi recibirlo)*/
 		id = IntroducirIdNueva();
+		if (id == 0) {
+			//Usuario a cancelado la operacion
+			return false;
+		}
 		
 		//Recibir idPlan
 		plan = IntroducirIdPlan();
@@ -206,7 +213,7 @@ public class tareas_mantenimientoDAO extends interfaces{
             	stat = con.createStatement();
             	stat.executeUpdate("insert into tareas_mantenimiento"
             			+ " (id_tarea, id_plan, descripcion, orden, instrucciones_detalladas, requiere_epi, epis_necesarios, reglas_seguirdad, reglas_medio_ambiente)"
-            			+ " ('"+id+"', '"+plan.getId()+"', '"+descripcion+"', "+orden+", '"+instruciones+"', "+requiereEpis+", '"+epis+"', '"+seguridad+"', , '"+medioAmbiente+"')");
+            			+ " ("+id+", "+plan.getId()+", '"+descripcion+"', "+orden+", '"+instruciones+"', "+requiereEpis+", '"+epis+"', '"+seguridad+"', , '"+medioAmbiente+"')");
             } catch(SQLException e) {
             	System.out.println("Error al insertar datos en la base de datos externa");
             } finally {
@@ -472,7 +479,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 				}
 			}
 			if (repetir && id != 0) {
-				//No se encontro ningun plan con la id introducida y no cancelo la operacion
+				//No se encontro ninguna tarea con la id introducida y no cancelo la operacion
 				System.out.println("No existe ninguna tarea con esa id");
 			}
 			
@@ -481,7 +488,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 		return tarea;
 	}
 	
-	/**El usuario introduce una id de plan
+	/**El usuario introduce la id de plan
 	 * @return plan de la id introducida*/
 	private planes_mantenimiento IntroducirIdPlan() {
 	

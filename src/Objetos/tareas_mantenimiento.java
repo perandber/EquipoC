@@ -38,7 +38,7 @@ public class tareas_mantenimiento {
 
 	@Override
 	public String toString() {
-		String resultado = "id:"+id+descripcion+", orden:"+orden+"\n";
+		String resultado = "id:"+id+" "+descripcion+", orden:"+orden+"\n";
 		if (!instrucciones.isEmpty() &&  instrucciones != null) {
 			resultado.concat("instrucciones: ");
 			resultado.concat(instrucciones);
@@ -59,8 +59,9 @@ public class tareas_mantenimiento {
 		resultado.concat(plan);
 		return resultado;
 	}
+	
 
-
+	//Getters y setters
 	public planes_mantenimiento getPlan() {
 		return plan;
 	}
@@ -146,7 +147,7 @@ public class tareas_mantenimiento {
 	}
 
 
-	//Getters y setters
+	
 	
 	
 	
