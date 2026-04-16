@@ -20,6 +20,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 	ArrayList<planes_mantenimiento> planes = new ArrayList<planes_mantenimiento>();
 	
 	static Scanner sc = new Scanner (System.in); //Crear escaner
+	planes_manteniminetoDAO planesDAO = new planes_manteniminetoDAO();
 	
 	@Override
 	public void Menu() {
@@ -33,7 +34,8 @@ public class tareas_mantenimientoDAO extends interfaces{
 					+ "1. Mostrar\n"
 					+ "2. Nueva\n"
 					+ "3. Actualizar\n"
-					+ "4. Borrar\n");
+					+ "4. Borrar\n"
+					+ "5. Mostrar planes");
 			
 			//recibir decision del usuario
 			try {
@@ -64,6 +66,8 @@ public class tareas_mantenimientoDAO extends interfaces{
 			case 4:
 				Borrar();
 			break;
+			case 5:
+				planesDAO.Mostrar();
 			default:
 				//Opcion fuera del rango
 				System.out.println("Opcion incorrecta o no existente");
@@ -105,7 +109,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 				//Asignar plan basado en la clave principal recibida
 				planes_mantenimiento plan;
 				for (planes_mantenimiento planTest : planes) {
-					if (planTest.getId = idPlan) {
+					if (planTest.getId() == idPlan) {
 						plan = planTest;
 					}
 				}
@@ -136,7 +140,11 @@ public class tareas_mantenimientoDAO extends interfaces{
 	@Override
 	protected boolean Crear() {
 		//Recibir objetos de la clase agregada
-		planes = planes_manteniminetoDAO.Recibir();
+		ArrayList<Object> planesTemp = planesDAO.Recibir();
+		for (Object plan : planesTemp) {
+			planes.add((planes_mantenimiento) plan);
+		}
+		
 		//Recibir objetos de la clase
 		tareas = Recibir();
 		
@@ -151,7 +159,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 		String seguridad = null; //Opcional
 		String medioAmbiente = null; //Opcional
 			
-		//Recibit id de la tarea 
+		//Recibir id de la tarea 
 		/*(No se si el profe queria que lo recibieros o lo hicieramos automatico
 		 * Pero por el odio que parece tenerle a los autoincrementales, decidi recibirlo)*/
 		id = IntroducirIdNueva();
@@ -198,7 +206,7 @@ public class tareas_mantenimientoDAO extends interfaces{
             	stat = con.createStatement();
             	stat.executeUpdate("insert into tareas_mantenimiento"
             			+ " (id_tarea, id_plan, descripcion, orden, instrucciones_detalladas, requiere_epi, epis_necesarios, reglas_seguirdad, reglas_medio_ambiente)"
-            			+ " ('"+id+"', '"+plan.getId+"', '"+descripcion+"', '"+orden+"', '"+instruciones+"', '"+requiereEpis+"', '"+epis+"', '"+seguridad+"', , '"+medioAmbiente+"')");
+            			+ " ('"+id+"', '"+plan.getId()+"', '"+descripcion+"', "+orden+", '"+instruciones+"', "+requiereEpis+", '"+epis+"', '"+seguridad+"', , '"+medioAmbiente+"')");
             } catch(SQLException e) {
             	System.out.println("Error al insertar datos en la base de datos externa");
             } finally {
@@ -225,7 +233,10 @@ public class tareas_mantenimientoDAO extends interfaces{
 	@Override
 	protected boolean Borrar() {
 		//Recibir objetos de la clase agregada
-		planes = planes_manteniminetoDAO.Recibir();
+		ArrayList<Object> planesTemp = planesDAO.Recibir();
+		for (Object plan : planesTemp) {
+			planes.add((planes_mantenimiento) plan);
+		}
 		//Recibir objetos de la clase
 		tareas = Recibir();
 				
@@ -276,7 +287,102 @@ public class tareas_mantenimientoDAO extends interfaces{
 
 	@Override
 	protected boolean Modificar() {
-		return false;
+		//Recibir objetos de la clase agregada
+		ArrayList<Object> planesTemp = planesDAO.Recibir();
+		for (Object plan : planesTemp) {
+			planes.add((planes_mantenimiento) plan);
+		}
+		//Recibir objetos de la clase
+		tareas = Recibir();
+
+		
+		//Datos a pedir
+		tareas_mantenimiento tarea;
+		planes_mantenimiento plan;
+		String descripcion;
+		int orden;
+		String instruciones = null; //Opcional
+		boolean requiereEpis;
+		String epis = null; //Opcional, depende de requiereEpis
+		String seguridad = null; //Opcional
+		String medioAmbiente = null; //Opcional
+		
+		
+		//Recibir tarea
+		tarea = IntroducirIdExistente();
+		if (tarea == null ) {
+			//Usuairo a cancelado la operacion
+			return false;
+		}
+		
+		//Recibir idPlan
+		plan = IntroducirIdPlan();
+		if (plan == null) {
+			//Usuario a cancelado la operacion;
+			return false;
+		}
+		
+		//Recibir descripcion
+		descripcion = IntroducirDescripcion();
+		
+		//Recibir orden
+		orden = IntroducirOrden();
+		
+		//Recibir instruciones
+		instruciones = IntroducirInstruciones();
+		
+		//Recibir booleano requiere epis
+		requiereEpis = IntroducirRequiereEpis();
+		
+		//Recibir epis (Si las requiere)
+		if (requiereEpis) {
+			epis = IntroducirEpisNecesarios();
+		}
+		
+		//Recibir normas de seguridad
+		seguridad = IntroducirReglasSeguridad();
+		
+		//Recibir normas del medio ambiente
+		medioAmbiente = IntroducirReglasMedioAmbiente();
+		
+		//Cambiar en local
+		tarea.setPlan(plan);
+		tarea.setDescripcion(descripcion);
+		tarea.setOrden(orden);
+		tarea.setInstrucciones(instruciones);
+		tarea.setRequiereEpi(requiereEpis);
+		tarea.setEpisNecesarios(epis);
+		tarea.setReglasSeguridad(seguridad);
+		tarea.setMedioAmbiente(medioAmbiente);
+		
+		//Intentar cambios en base de datos externa
+		Connection con = conexion.Conectar();
+        Statement stat = null;
+ 
+        
+        try {
+        	stat = con.createStatement();
+        	stat.executeUpdate("update tareas_mantenimiento"
+        			+ " set descripcion = '"+descripcion+", orden = "+orden+","
+        			+ " instrucciones_detalladas = '"+instruciones+"', requiere_epi = "+requiereEpis+","
+        			+ " epis_necesarios = '"+epis+"', reglas_seguirdad = '"+seguridad+"', reglas_medio_ambiente = '"+medioAmbiente+"'"
+        			+ " where id_tarea = "+tarea.getId()+"");
+        } catch(SQLException e) {
+        	System.out.println("Error al modificar datos en la base de datos externa");
+        } finally {
+        	
+        	try {
+        		if (stat!=null){
+        			stat.close();
+                } 
+                con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar conexion");
+                e.printStackTrace();
+            }
+        }
+		
+		return true;
 	}
 	
 
@@ -334,7 +440,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 	 * @return la id introducida*/
 	private tareas_mantenimiento IntroducirIdExistente() {
 		//Variable a devolver
-		tareas_mantenimiento tarea;
+		tareas_mantenimiento tarea = null;
 		int id = 0;
 		
 		//Repetir el bucle pidiendo al usuario informacion
@@ -405,7 +511,7 @@ public class tareas_mantenimientoDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe un plan con la clave principal
 			for (planes_mantenimiento planTest : planes) {
-				if (planTest.getId == idPlan) {
+				if (planTest.getId() == idPlan) {
 					//Asignar plan que tenga la id introducida
 					plan = planTest;
 					repetir = false;
