@@ -33,7 +33,9 @@ public class maquinas_piezas extends interfaces {
 
 
 	// ── Constructores ────────────────────────────────────────
-	
+	public maquinas_piezas() {
+		
+	}
 	
 	public maquinas_piezas(int id_pieza, String codigo_proveedor, String codigo_interno, String nombre,
 			String descripcion, int stock_actual, int stock_minimo, int stock_maximo, BigDecimal precio_unitario,
@@ -205,12 +207,18 @@ public class maquinas_piezas extends interfaces {
 			catch (NumberFormatException e) { opcion = -1; }
 
 			switch (opcion) {
-				case 0: bucle = false;    break;
-				case 1: Mostrar();        break;
-				case 2: Crear();          break;
-				case 3: Modificar();      break;
-				case 4: Borrar();         break;
-				case 5: Buscar();         break;
+				case 0: bucle = false;
+				break;
+				case 1: Mostrar();
+				break;
+				case 2: Crear();
+				break;
+				case 3: Modificar();
+				break;
+				case 4: Borrar();
+				break;
+				case 5: Buscar(); 
+				break;
 				default: System.out.println("Opción incorrecta");
 			}
 		}
