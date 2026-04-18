@@ -19,14 +19,14 @@ public class tareas_proyecto {
 	private int duracion;
 	/**Maximo 500 caracteres*/
 	private String dependencias;
-	private usuarios responsable;
+	private usuario responsable;
 	private int progreso;
 	/**Maximo 15 caracteres*/
 	private String estado;
 	
 	/**Constructor completo*/
 	public tareas_proyecto(int id, proyectos_gantt proyecto, String nombre, String descripcion, LocalDate fechaInicio,
-			LocalDate fechaFin, int duracion, String dependencias, usuarios responsable, int progreso, String estado) {
+			LocalDate fechaFin, int duracion, String dependencias, usuario responsable, int progreso, String estado) {
 		super();
 		this.id = id;
 		this.proyecto = proyecto;
@@ -107,11 +107,11 @@ public class tareas_proyecto {
 		this.dependencias = dependencias;
 	}
 
-	public usuarios getResponsable() {
+	public usuario getResponsable() {
 		return responsable;
 	}
 
-	public void setResponsable(usuarios responsable) {
+	public void setResponsable(usuario responsable) {
 		this.responsable = responsable;
 	}
 

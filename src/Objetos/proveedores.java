@@ -13,7 +13,7 @@ import DAO.proveedores_maquinasDAO;
  * 
  * @author Alexandru
  */
-public class proveedores_maquinas extends interfaces {
+public class proveedores extends interfaces {
 
 	// ── Propiedades ──────────────────────────────────────────
 	private int    id_proveedor;
@@ -26,39 +26,71 @@ public class proveedores_maquinas extends interfaces {
 	private static Scanner sc = new Scanner(System.in);
 
 
-	// ── Constructores ────────────────────────────────────────
-	public proveedores_maquinas() { }
-
-	public proveedores_maquinas(int id_proveedor, String nombre, String contacto,
-	                            String telefono, String email, String direccion) {
+	// Constructores
+	public proveedores() {
+		
+	}
+	
+	public proveedores(int id_proveedor, String nombre, String contacto, String telefono, String email,
+			String direccion) {
+		super();
 		this.id_proveedor = id_proveedor;
-		this.nombre       = nombre;
-		this.contacto     = contacto;
-		this.telefono     = telefono;
-		this.email        = email;
-		this.direccion    = direccion;
+		this.nombre = nombre;
+		this.contacto = contacto;
+		this.telefono = telefono;
+		this.email = email;
+		this.direccion = direccion;
 	}
 
+	// Getters y Setters
+	
+	public int getId_proveedor() {
+		return id_proveedor;
+	}
 
-	// ── Getters y Setters ────────────────────────────────────
-	public int getId_proveedor()         { return id_proveedor; }
-	public void setId_proveedor(int v)   { this.id_proveedor = v; }
+	public void setId_proveedor(int id_proveedor) {
+		this.id_proveedor = id_proveedor;
+	}
 
-	public String getNombre()            { return nombre; }
-	public void setNombre(String v)      { this.nombre = v; }
+	public String getNombre() {
+		return nombre;
+	}
 
-	public String getContacto()          { return contacto; }
-	public void setContacto(String v)    { this.contacto = v; }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-	public String getTelefono()          { return telefono; }
-	public void setTelefono(String v)    { this.telefono = v; }
+	public String getContacto() {
+		return contacto;
+	}
 
-	public String getEmail()             { return email; }
-	public void setEmail(String v)       { this.email = v; }
+	public void setContacto(String contacto) {
+		this.contacto = contacto;
+	}
 
-	public String getDireccion()         { return direccion; }
-	public void setDireccion(String v)   { this.direccion = v; }
+	public String getTelefono() {
+		return telefono;
+	}
 
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
 	@Override
 	public String toString() {
@@ -74,9 +106,7 @@ public class proveedores_maquinas extends interfaces {
 	}
 
 
-	// ============================================================
-	// MENU
-	// ============================================================
+
 	public void Menu() {
 		boolean bucle = true;
 		int opcion;
@@ -95,40 +125,46 @@ public class proveedores_maquinas extends interfaces {
 			catch (NumberFormatException e) { opcion = -1; }
 
 			switch (opcion) {
-				case 0: bucle = false;    break;
-				case 1: Mostrar();        break;
-				case 2: Crear();          break;
-				case 3: Modificar();      break;
-				case 4: Borrar();         break;
-				case 5: Buscar();         break;
+				case 0: bucle = false; 
+				break;
+				case 1: Mostrar(); 
+				break;
+				case 2: Crear();  
+				break;
+				case 3: Modificar(); 
+				break;
+				case 4: Borrar(); 
+				break;
+				case 5: Buscar();  
+				break;
 				default: System.out.println("Opción incorrecta");
 			}
 		}
 	}
 
-
-	// ── MOSTRAR ───────────────────────────────────────────────
-	public void Mostrar() {
+	public boolean Mostrar() {
 		proveedores_maquinasDAO dao = new proveedores_maquinasDAO();
-		ArrayList<proveedores_maquinas> lista = dao.listarTodos();
-		if (lista == null) { System.out.println("Error al consultar."); return; }
+		ArrayList<proveedores> lista = dao.listarTodos();
+		if (lista == null) { System.out.println("Error al consultar."); 
+		return false; }
 
 		if (lista.isEmpty()) {
 			System.out.println("No hay proveedores registrados.");
+			return false;
 		} else {
 			System.out.println("\n── Proveedores (" + lista.size() + ") ──");
-			for (proveedores_maquinas p : lista) System.out.println(p);
+			for (proveedores p : lista) System.out.println(p);
 		}
+		return true;
 	}
 
-
-	// ── CREAR ─────────────────────────────────────────────────
-	public void Crear() {
+	public boolean Crear() {
 		System.out.println("\n── Nuevo proveedor ──");
 
 		System.out.print("Nombre: ");
 		String nombre = sc.nextLine().trim();
-		if (nombre.isEmpty()) { System.out.println("El nombre es obligatorio."); return; }
+		if (nombre.isEmpty()) { System.out.println("El nombre es obligatorio."); 
+		return false; }
 
 		System.out.print("Contacto: ");
 		String contacto = sc.nextLine().trim();
@@ -142,7 +178,7 @@ public class proveedores_maquinas extends interfaces {
 		System.out.print("Dirección: ");
 		String direccion = sc.nextLine().trim();
 
-		proveedores_maquinas p = new proveedores_maquinas();
+		proveedores p = new proveedores();
 		p.setNombre(nombre);
 		p.setContacto(contacto);
 		p.setTelefono(telefono);
@@ -152,19 +188,20 @@ public class proveedores_maquinas extends interfaces {
 		proveedores_maquinasDAO dao = new proveedores_maquinasDAO();
 		boolean ok = dao.insertar(p);
 		System.out.println(ok ? "Proveedor creado." : "No se pudo crear.");
+		return ok;
 	}
 
-
-	// ── MODIFICAR ─────────────────────────────────────────────
-	public void Modificar() {
+	public boolean Modificar() {
 		System.out.print("\nID del proveedor a modificar: ");
 		int id;
 		try { id = Integer.parseInt(sc.nextLine()); }
-		catch (NumberFormatException e) { System.out.println("ID inválido."); return; }
+		catch (NumberFormatException e) { System.out.println("ID inválido."); 
+		return false; }
 
 		proveedores_maquinasDAO dao = new proveedores_maquinasDAO();
-		proveedores_maquinas p = dao.buscarPorId(id);
-		if (p == null) { System.out.println("No existe ese proveedor."); return; }
+		proveedores p = dao.buscarPorId(id);
+		if (p == null) { System.out.println("No existe ese proveedor."); 
+		return false; }
 
 		System.out.println("Actual: " + p);
 		System.out.println("(Deja vacío para mantener el valor)");
@@ -191,11 +228,10 @@ public class proveedores_maquinas extends interfaces {
 
 		boolean ok = dao.actualizar(p);
 		System.out.println(ok ? "Proveedor modificado." : "No se pudo modificar.");
+		return ok;
 	}
 
-
-	// ── BORRAR ────────────────────────────────────────────────
-	public void Borrar() {
+	public boolean Borrar() {
 		System.out.print("\nID del proveedor a borrar: ");
 		int id;
 		try { id = Integer.parseInt(sc.nextLine()); }
@@ -213,8 +249,6 @@ public class proveedores_maquinas extends interfaces {
 		}
 	}
 
-
-	// ── BUSCAR ────────────────────────────────────────────────
 	public void Buscar() {
 		System.out.println("\n── Buscar proveedores (vacío = ignorar filtro) ──");
 
@@ -228,10 +262,16 @@ public class proveedores_maquinas extends interfaces {
 		String fEmail = sc.nextLine().trim();
 
 		proveedores_maquinasDAO dao = new proveedores_maquinasDAO();
-		ArrayList<proveedores_maquinas> resultados = dao.buscar(fNombre, fContacto, fEmail);
+		ArrayList<proveedores> resultados = dao.buscar(fNombre, fContacto, fEmail);
 		if (resultados == null) { System.out.println("Error al consultar."); return; }
 
 		System.out.println("\n── Resultados (" + resultados.size() + ") ──");
-		for (proveedores_maquinas p : resultados) System.out.println(p);
+		for (proveedores p : resultados) System.out.println(p);
+	}
+
+	@Override
+	public ArrayList<Object> Recibir() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

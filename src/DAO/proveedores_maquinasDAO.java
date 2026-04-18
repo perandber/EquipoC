@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Comun.conexion;
-import Objetos.proveedores_maquinas;
+import Objetos.proveedores;
 
 /**
  * DAO de la tabla "proveedores_maquinas".
@@ -19,9 +19,9 @@ import Objetos.proveedores_maquinas;
 public class proveedores_maquinasDAO {
 
 
-	// ── LISTAR TODOS ──────────────────────────────────────────
-	public ArrayList<proveedores_maquinas> listarTodos() {
-		ArrayList<proveedores_maquinas> lista = new ArrayList<>();
+	// LISTAR TODOS
+	public ArrayList<proveedores> listarTodos() {
+		ArrayList<proveedores> lista = new ArrayList<>();
 		Connection con = conexion.Conectar();
 		if (con == null) return null;
 
@@ -40,8 +40,8 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── BUSCAR POR ID ────────────────────────────────────────
-	public proveedores_maquinas buscarPorId(int id) {
+	// BUSCAR POR ID
+	public proveedores buscarPorId(int id) {
 		Connection con = conexion.Conectar();
 		if (con == null) return null;
 
@@ -59,9 +59,9 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── BUSCAR con filtros ───────────────────────────────────
-	public ArrayList<proveedores_maquinas> buscar(String fNombre, String fContacto, String fEmail) {
-		ArrayList<proveedores_maquinas> lista = new ArrayList<>();
+	// BUSCAR con filtros
+	public ArrayList<proveedores> buscar(String fNombre, String fContacto, String fEmail) {
+		ArrayList<proveedores> lista = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM proveedores_maquinas WHERE 1=1");
 		ArrayList<String> params = new ArrayList<>();
 
@@ -89,8 +89,8 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── INSERTAR ─────────────────────────────────────────────
-	public boolean insertar(proveedores_maquinas p) {
+	// INSERTAR 
+	public boolean insertar(proveedores p) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
 
@@ -111,8 +111,8 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── ACTUALIZAR ───────────────────────────────────────────
-	public boolean actualizar(proveedores_maquinas p) {
+	// ACTUALIZAR
+	public boolean actualizar(proveedores p) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
 
@@ -134,7 +134,7 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── BORRAR ───────────────────────────────────────────────
+	// BORRAR 
 	// Devuelve: 1 OK, 0 no encontrado, -1 foreign key
 	public int borrar(int id) {
 		Connection con = conexion.Conectar();
@@ -154,9 +154,9 @@ public class proveedores_maquinasDAO {
 	}
 
 
-	// ── AUXILIAR ─────────────────────────────────────────────
-	private proveedores_maquinas filaAObjeto(ResultSet rs) throws SQLException {
-		proveedores_maquinas p = new proveedores_maquinas();
+	// AUXILIAR 
+	private proveedores filaAObjeto(ResultSet rs) throws SQLException {
+		proveedores p = new proveedores();
 		p.setId_proveedor(rs.getInt("id_proveedor"));
 		p.setNombre(rs.getString("nombre"));
 		p.setContacto(rs.getString("contacto"));

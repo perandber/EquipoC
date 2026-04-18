@@ -12,14 +12,14 @@ import Comun.conexion;
 import Comun.interfaces;
 import Objetos.proyectos_gantt;
 import Objetos.tareas_proyecto;
-import Objetos.usuarios;
+import Objetos.usuario;
 
 /** Manejar, crear y borrar el objeto del mismo nombre
  * @author Perceval*/
 public class tareas_proyectoDAO extends interfaces{
 	ArrayList<tareas_proyecto> tareas = new ArrayList<tareas_proyecto>(); 
 	ArrayList<proyectos_gantt> proyectos = new ArrayList<proyectos_gantt>();
-	ArrayList<usuarios> usuariosList = new ArrayList<usuarios>();
+	ArrayList<usuario> usuariosList = new ArrayList<usuario>();
 	
 	static Scanner sc = new Scanner (System.in); //Crear escaner
 	proyectos_gnattDAO proyectosDAO = new proyectos_gnattDAO();
@@ -100,7 +100,7 @@ public class tareas_proyectoDAO extends interfaces{
 		
 		ArrayList<Object> usuariosTemp = usuariosDAO.Recibir();
 		for (Object usuario : usuariosTemp) {
-			usuariosList.add((usuarios) usuario);
+			usuariosList.add((usuario) usuario);
 		}
 		
 		//Crear query
@@ -133,8 +133,8 @@ public class tareas_proyectoDAO extends interfaces{
 				}
 				
 				//Asignar responsable basado en la clave principal recibida
-				usuarios responsable = null;
-				for (usuarios usuarioTest : usuariosList) {
+				usuario responsable = null;
+				for (usuario usuarioTest : usuariosList) {
 					if (usuarioTest.getId() == idResponsable) {
 						responsable = usuarioTest;
 					}
@@ -173,7 +173,7 @@ public class tareas_proyectoDAO extends interfaces{
 		
 		ArrayList<Object> usuariosTemp = usuariosDAO.Recibir();
 		for (Object usuario : usuariosTemp) {
-			usuariosList.add((usuarios) usuario);
+			usuariosList.add((usuario) usuario);
 		}
 		
 		//Recibir objetos de la clase
@@ -188,7 +188,7 @@ public class tareas_proyectoDAO extends interfaces{
 		LocalDate fechaFin;
 		int duracion;
 		String dependencias;
-		usuarios responsable;
+		usuario responsable;
 		int progreso;
 		String estado;
 			
@@ -283,7 +283,7 @@ public class tareas_proyectoDAO extends interfaces{
 		
 		ArrayList<Object> usuariosTemp = usuariosDAO.Recibir();
 		for (Object usuario : usuariosTemp) {
-			usuariosList.add((usuarios) usuario);
+			usuariosList.add((usuario) usuario);
 		}
 		
 		//Recibir objetos de la clase
@@ -344,7 +344,7 @@ public class tareas_proyectoDAO extends interfaces{
 		
 		ArrayList<Object> usuariosTemp = usuariosDAO.Recibir();
 		for (Object usuario : usuariosTemp) {
-			usuariosList.add((usuarios) usuario);
+			usuariosList.add((usuario) usuario);
 		}
 		
 		//Recibir objetos de la clase
@@ -360,7 +360,7 @@ public class tareas_proyectoDAO extends interfaces{
 		LocalDate fechaFin;
 		int duracion;
 		String dependencias;
-		usuarios responsable;
+		usuario responsable;
 		int progreso;
 		String estado;
 		
@@ -702,11 +702,11 @@ public class tareas_proyectoDAO extends interfaces{
 	
 	/**El usuario introduce el responsable
 	 * @return usuario responsable*/
-	private usuarios IntroducirResponsable() {
+	private usuario IntroducirResponsable() {
 	
 		int idUsuario = 0;
 		//Variable a devolver
-		usuarios responsable = null;
+		usuario responsable = null;
 		
 		//Repetir el bucle pidiendo al usuario informacion
 		boolean repetir = true;
@@ -729,7 +729,7 @@ public class tareas_proyectoDAO extends interfaces{
 			
 			//Comprobaciones
 			//Comprobar si existe un usuario con la clave principal
-			for (usuarios usuarioTest : usuariosList) {
+			for (usuario usuarioTest : usuariosList) {
 				if (usuarioTest.getId() == idUsuario) {
 					//Asignar usuario que tenga la id introducida
 					responsable = usuarioTest;

@@ -13,10 +13,7 @@ import Comun.conexion;
 import Objetos.maquinas_piezas;
 
 /**
- * DAO de la tabla de piezas de repuesto (tabla "piezas_repuesto" en la BD).
- * Solo operaciones de BD. El menú está en Objetos/maquinas_piezas.java.
- * 
- * @author Cristian
+ * @author Alexandru
  */
 public class maquinas_piezasDAO {
 
@@ -26,7 +23,7 @@ public class maquinas_piezasDAO {
 	private static final String PK    = "id_pieza";
 
 
-	// ── LISTAR TODAS ──────────────────────────────────────────
+	// LISTAR TODAS 
 	public ArrayList<maquinas_piezas> listarTodas() {
 		ArrayList<maquinas_piezas> lista = new ArrayList<>();
 		Connection con = conexion.Conectar();
@@ -47,7 +44,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── BUSCAR POR ID ────────────────────────────────────────
+	// BUSCAR POR ID 
 	public maquinas_piezas buscarPorId(int id) {
 		Connection con = conexion.Conectar();
 		if (con == null) return null;
@@ -66,7 +63,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── BUSCAR con filtros ───────────────────────────────────
+	// BUSCAR con filtros 
 	public ArrayList<maquinas_piezas> buscar(String fNombre, String fCodInt, Integer fStockMax) {
 		ArrayList<maquinas_piezas> lista = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLA + " WHERE 1=1");
@@ -96,7 +93,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── INSERTAR ─────────────────────────────────────────────
+	// INSERTAR 
 	public boolean insertar(maquinas_piezas p) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
@@ -127,7 +124,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── ACTUALIZAR ───────────────────────────────────────────
+	// ACTUALIZAR
 	public boolean actualizar(maquinas_piezas p) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
@@ -153,7 +150,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── BORRAR ───────────────────────────────────────────────
+	// BORRAR 
 	// Devuelve: 1 OK, 0 no encontrado, -1 foreign key
 	public int borrar(int id) {
 		Connection con = conexion.Conectar();
@@ -173,7 +170,7 @@ public class maquinas_piezasDAO {
 	}
 
 
-	// ── AUXILIAR ─────────────────────────────────────────────
+	// AUXILIAR 
 	private maquinas_piezas filaAObjeto(ResultSet rs) throws SQLException {
 		maquinas_piezas p = new maquinas_piezas();
 		p.setId_pieza(rs.getInt(PK));

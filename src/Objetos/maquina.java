@@ -10,23 +10,13 @@ import java.util.Scanner;
 import DAO.maquinasDAO;
 
 /**
- * Clase Objeto + Menú para la tabla "maquinas".
- * 
- * ESTRUCTURA (importante para el equipo):
- *   - Propiedades privadas + getters/setters (representan una fila de la BD)
- *   - toString() → cómo se imprime el objeto por consola
- *   - Menu() → muestra las opciones al usuario
- *   - Métodos Mostrar/Crear/Modificar/Borrar/Buscar → piden datos por consola
- *     y delegan el acceso a BD en maquinasDAO (que está en el paquete DAO)
- * 
- * El DAO solo se encarga de hablar con la base de datos.
- * Esta clase se encarga de hablar con el usuario.
  * 
  * @author Alexandru
  */
-public class maquinas extends interfaces {
+public class maquina extends interfaces {
 
-	// ── Propiedades (columnas de la tabla) ──────────────────────
+	// Propiedades (columnas de la tabla) 
+	
 	private int       id_maquina;
 	private String    nombre;
 	private String    tipo;
@@ -39,69 +29,128 @@ public class maquinas extends interfaces {
 	private Integer   proveedor_id;  // Integer para aceptar NULL
 	private boolean   activa;
 	private Timestamp fecha_registro;
+	
+	//  Constructores 
+	
+	public maquina() {
+		
+	}
 
-	// ── Scanner compartido para leer entrada del usuario ────────
-	private static Scanner sc = new Scanner(System.in);
-
-
-	// ── Constructores ────────────────────────────────────────
-	public maquinas() { }
-
-	public maquinas(int id_maquina, String nombre, String tipo, String numero_serie,
-	                String ubicacion, String fabricante, Date fecha_compra, String estado,
-	                String qr_code, Integer proveedor_id, boolean activa, Timestamp fecha_registro) {
-		this.id_maquina     = id_maquina;
-		this.nombre         = nombre;
-		this.tipo           = tipo;
-		this.numero_serie   = numero_serie;
-		this.ubicacion      = ubicacion;
-		this.fabricante     = fabricante;
-		this.fecha_compra   = fecha_compra;
-		this.estado         = estado;
-		this.qr_code        = qr_code;
-		this.proveedor_id   = proveedor_id;
-		this.activa         = activa;
+	public maquina(int id_maquina, String nombre, String tipo, String numero_serie, String ubicacion,
+			String fabricante, Date fecha_compra, String estado, String qr_code, Integer proveedor_id, boolean activa,
+			Timestamp fecha_registro) {
+		super();
+		this.id_maquina = id_maquina;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.numero_serie = numero_serie;
+		this.ubicacion = ubicacion;
+		this.fabricante = fabricante;
+		this.fecha_compra = fecha_compra;
+		this.estado = estado;
+		this.qr_code = qr_code;
+		this.proveedor_id = proveedor_id;
+		this.activa = activa;
 		this.fecha_registro = fecha_registro;
 	}
 
+	// Getters y Setters 
+	
+	public int getId_maquina() {
+		return id_maquina;
+	}
 
-	// ── Getters y Setters ─────────────────────────────────────
-	public int getId_maquina()            { return id_maquina; }
-	public void setId_maquina(int v)      { this.id_maquina = v; }
+	public void setId_maquina(int id_maquina) {
+		this.id_maquina = id_maquina;
+	}
 
-	public String getNombre()             { return nombre; }
-	public void setNombre(String v)       { this.nombre = v; }
+	public String getNombre() {
+		return nombre;
+	}
 
-	public String getTipo()               { return tipo; }
-	public void setTipo(String v)         { this.tipo = v; }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-	public String getNumero_serie()       { return numero_serie; }
-	public void setNumero_serie(String v) { this.numero_serie = v; }
+	public String getTipo() {
+		return tipo;
+	}
 
-	public String getUbicacion()          { return ubicacion; }
-	public void setUbicacion(String v)    { this.ubicacion = v; }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-	public String getFabricante()         { return fabricante; }
-	public void setFabricante(String v)   { this.fabricante = v; }
+	public String getNumero_serie() {
+		return numero_serie;
+	}
 
-	public Date getFecha_compra()         { return fecha_compra; }
-	public void setFecha_compra(Date v)   { this.fecha_compra = v; }
+	public void setNumero_serie(String numero_serie) {
+		this.numero_serie = numero_serie;
+	}
 
-	public String getEstado()             { return estado; }
-	public void setEstado(String v)       { this.estado = v; }
+	public String getUbicacion() {
+		return ubicacion;
+	}
 
-	public String getQr_code()            { return qr_code; }
-	public void setQr_code(String v)      { this.qr_code = v; }
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 
-	public Integer getProveedor_id()      { return proveedor_id; }
-	public void setProveedor_id(Integer v){ this.proveedor_id = v; }
+	public String getFabricante() {
+		return fabricante;
+	}
 
-	public boolean isActiva()             { return activa; }
-	public void setActiva(boolean v)      { this.activa = v; }
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
+	}
 
-	public Timestamp getFecha_registro()        { return fecha_registro; }
-	public void setFecha_registro(Timestamp v)  { this.fecha_registro = v; }
+	public Date getFecha_compra() {
+		return fecha_compra;
+	}
 
+	public void setFecha_compra(Date fecha_compra) {
+		this.fecha_compra = fecha_compra;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getQr_code() {
+		return qr_code;
+	}
+
+	public void setQr_code(String qr_code) {
+		this.qr_code = qr_code;
+	}
+
+	public Integer getProveedor_id() {
+		return proveedor_id;
+	}
+
+	public void setProveedor_id(Integer proveedor_id) {
+		this.proveedor_id = proveedor_id;
+	}
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
+	}
+
+	public Timestamp getFecha_registro() {
+		return fecha_registro;
+	}
+
+	public void setFecha_registro(Timestamp fecha_registro) {
+		this.fecha_registro = fecha_registro;
+	}
 
 	// ── toString: cómo se imprime el objeto en consola ───────
 	@Override
@@ -119,10 +168,8 @@ public class maquinas extends interfaces {
 		);
 	}
 
+	
 
-	// ============================================================
-	// MENU — muestra las opciones al usuario
-	// ============================================================
 	public void Menu() {
 		boolean bucle = true;
 		int opcion;
@@ -151,28 +198,22 @@ public class maquinas extends interfaces {
 			}
 		}
 	}
+	
+	private static Scanner sc = new Scanner(System.in);
 
-
-	// ============================================================
-	// MOSTRAR — pide al DAO la lista y la imprime
-	// ============================================================
 	public void Mostrar() {
 		maquinasDAO dao = new maquinasDAO();
-		ArrayList<maquinas> lista = dao.listarTodas();
+		ArrayList<maquina> lista = dao.listarTodas();
 		if (lista == null) { System.out.println("Error al consultar la base de datos."); return; }
 
 		if (lista.isEmpty()) {
 			System.out.println("No hay máquinas registradas.");
 		} else {
 			System.out.println("\n── Máquinas registradas (" + lista.size() + ") ──");
-			for (maquinas m : lista) System.out.println(m);
+			for (maquina m : lista) System.out.println(m);
 		}
 	}
 
-
-	// ============================================================
-	// CREAR — pide datos al usuario y pide al DAO que inserte
-	// ============================================================
 	public void Crear() {
 		System.out.println("\n── Nueva máquina ──");
 
@@ -218,7 +259,7 @@ public class maquinas extends interfaces {
 		boolean activa = !activaStr.equalsIgnoreCase("n");
 
 		// Creamos el objeto y pedimos al DAO que lo inserte
-		maquinas m = new maquinas();
+		maquina m = new maquina();
 		m.setNombre(nombre);
 		m.setTipo(tipo);
 		m.setNumero_serie(numeroSerie);
@@ -234,10 +275,6 @@ public class maquinas extends interfaces {
 		System.out.println(ok ? "Máquina creada correctamente." : "No se pudo crear la máquina.");
 	}
 
-
-	// ============================================================
-	// MODIFICAR — pide un id y permite cambiar los campos
-	// ============================================================
 	public void Modificar() {
 		System.out.print("\nID de la máquina a modificar: ");
 		int id;
@@ -245,7 +282,7 @@ public class maquinas extends interfaces {
 		catch (NumberFormatException e) { System.out.println("ID inválido."); return; }
 
 		maquinasDAO dao = new maquinasDAO();
-		maquinas m = dao.buscarPorId(id);
+		maquina m = dao.buscarPorId(id);
 		if (m == null) { System.out.println("No existe una máquina con id " + id); return; }
 
 		System.out.println("Máquina actual: " + m);
@@ -283,10 +320,6 @@ public class maquinas extends interfaces {
 		System.out.println(ok ? "Máquina modificada correctamente." : "No se pudo modificar.");
 	}
 
-
-	// ============================================================
-	// BORRAR — pide un id y borra (con opción de desactivar)
-	// ============================================================
 	public void Borrar() {
 		System.out.print("\nID de la máquina a borrar: ");
 		int id;
@@ -323,10 +356,6 @@ public class maquinas extends interfaces {
 		}
 	}
 
-
-	// ============================================================
-	// BUSCAR — pide filtros y muestra resultados
-	// ============================================================
 	public void Buscar() {
 		System.out.println("\n── Buscar máquinas (vacío = ignorar filtro) ──");
 
@@ -343,10 +372,16 @@ public class maquinas extends interfaces {
 		String fEstado = sc.nextLine().trim();
 
 		maquinasDAO dao = new maquinasDAO();
-		ArrayList<maquinas> resultados = dao.buscar(fNombre, fTipo, fUbicacion, fEstado);
+		ArrayList<maquina> resultados = dao.buscar(fNombre, fTipo, fUbicacion, fEstado);
 		if (resultados == null) { System.out.println("Error al consultar."); return; }
 
 		System.out.println("\n── Resultados (" + resultados.size() + ") ──");
-		for (maquinas m : resultados) System.out.println(m);
+		for (maquina m : resultados) System.out.println(m);
+	}
+
+	@Override
+	public ArrayList<Object> Recibir() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

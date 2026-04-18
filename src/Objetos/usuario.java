@@ -1,0 +1,186 @@
+package Objetos;
+
+import Comun.interfaces;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import DAO.usuariosDAO;
+
+/**
+ * Clase Objeto + Menú para la tabla "usuarios".
+ * 
+ * NOTA sobre contraseñas:
+ *   La aplicación web guarda contraseñas con BCrypt (PHP).
+ *   Aquí en Java, si quieres compatibilidad, añade la librería jBCrypt
+ *   y cambia la línea marcada con "MODO DEMO" en este archivo.
+ * 
+ * @author Alexandru
+ */
+public class usuario extends interfaces {
+
+	// ── Propiedades ──────────────────────────────────────────
+	private int       id_usuario;
+	private String    nombre;
+	private String    apellidos;
+	private String    email;
+	private String    password_hash;   // NUNCA se muestra
+	private String    rol;             // 'tecnico' o 'responsable'
+	private boolean   activo;
+	private Timestamp fecha_creacion;
+	private Timestamp ultimo_acceso;
+
+	
+
+
+	//Constructores 
+	public usuario() {
+		
+	}
+
+	public usuario(int id_usuario, String nombre, String apellidos, String email, String password_hash, String rol,
+			boolean activo, Timestamp fecha_creacion, Timestamp ultimo_acceso) {
+		super();
+		this.id_usuario = id_usuario;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.password_hash = password_hash;
+		this.rol = rol;
+		this.activo = activo;
+		this.fecha_creacion = fecha_creacion;
+		this.ultimo_acceso = ultimo_acceso;
+	}
+
+
+
+
+	// Getters y Setters 
+	
+	public int getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(int id_usuario) {
+		this.id_usuario = id_usuario;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword_hash() {
+		return password_hash;
+	}
+
+	public void setPassword_hash(String password_hash) {
+		this.password_hash = password_hash;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public Timestamp getFecha_creacion() {
+		return fecha_creacion;
+	}
+
+	public void setFecha_creacion(Timestamp fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
+	}
+
+	public Timestamp getUltimo_acceso() {
+		return ultimo_acceso;
+	}
+
+	public void setUltimo_acceso(Timestamp ultimo_acceso) {
+		this.ultimo_acceso = ultimo_acceso;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+			"[%d] %s %s | Email: %s | Rol: %s | Activo: %s | Último acceso: %s",
+			id_usuario,
+			nombre != null ? nombre : "",
+			apellidos != null ? apellidos : "",
+			email != null ? email : "",
+			rol != null ? rol : "",
+			activo ? "Sí" : "No",
+			ultimo_acceso != null ? ultimo_acceso.toString() : "Nunca"
+		);
+	}
+
+	@Override
+	public void Menu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean Mostrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Object> Recibir() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected boolean Crear() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Borrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Modificar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	
+}

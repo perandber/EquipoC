@@ -8,35 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Comun.conexion;
-import Objetos.maquinas;
+import Objetos.maquina;
 
 /**
- * DAO de la tabla "maquinas".
- * 
- * GUÍA PARA EL EQUIPO:
- *   Esta clase SOLO se encarga de hablar con la base de datos.
- *   No pide datos al usuario ni imprime por consola (salvo errores).
- *   El menú y la interacción con el usuario están en Objetos/maquinas.java.
- * 
- * Métodos disponibles:
- *   listarTodas()         → devuelve ArrayList con todas las máquinas
- *   buscarPorId(id)       → devuelve una máquina concreta o null
- *   buscar(filtros...)    → devuelve ArrayList filtrado por los campos indicados
- *   insertar(m, fecha)    → inserta una nueva máquina
- *   actualizar(m)         → actualiza los campos de una máquina existente
- *   borrar(id)            → devuelve 1 si OK, 0 si no existía, -1 si foreign key
- *   desactivar(id)        → pone activa=0 sin borrar
- * 
  * @author Alexandru
  */
 public class maquinasDAO {
 
-
-	// ============================================================
 	// LISTAR TODAS
-	// ============================================================
-	public ArrayList<maquinas> listarTodas() {
-		ArrayList<maquinas> lista = new ArrayList<>();
+
+	public ArrayList<maquina> listarTodas() {
+		ArrayList<maquina> lista = new ArrayList<>();
 		Connection con = conexion.Conectar();
 		if (con == null) return null;
 
@@ -55,10 +37,10 @@ public class maquinasDAO {
 	}
 
 
-	// ============================================================
+
 	// BUSCAR POR ID
-	// ============================================================
-	public maquinas buscarPorId(int id) {
+
+	public maquina buscarPorId(int id) {
 		Connection con = conexion.Conectar();
 		if (con == null) return null;
 
@@ -76,11 +58,11 @@ public class maquinasDAO {
 	}
 
 
-	// ============================================================
+
 	// BUSCAR con filtros dinámicos
-	// ============================================================
-	public ArrayList<maquinas> buscar(String fNombre, String fTipo, String fUbicacion, String fEstado) {
-		ArrayList<maquinas> lista = new ArrayList<>();
+	
+	public ArrayList<maquina> buscar(String fNombre, String fTipo, String fUbicacion, String fEstado) {
+		ArrayList<maquina> lista = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM maquinas WHERE 1=1");
 		ArrayList<String> params = new ArrayList<>();
 
@@ -109,12 +91,12 @@ public class maquinasDAO {
 	}
 
 
-	// ============================================================
+
 	// INSERTAR
 	// El parámetro fechaCompra se pasa aparte como String porque
 	// el objeto usa java.sql.Date y puede venir null.
-	// ============================================================
-	public boolean insertar(maquinas m, String fechaCompra) {
+
+	public boolean insertar(maquina m, String fechaCompra) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
 
@@ -144,10 +126,10 @@ public class maquinasDAO {
 	}
 
 
-	// ============================================================
+
 	// ACTUALIZAR
-	// ============================================================
-	public boolean actualizar(maquinas m) {
+
+	public boolean actualizar(maquina m) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
 
@@ -173,10 +155,10 @@ public class maquinasDAO {
 	}
 
 
-	// ============================================================
+
 	// BORRAR
 	// Devuelve: 1 si OK, 0 si no encontró nada, -1 si error de foreign key
-	// ============================================================
+
 	public int borrar(int id) {
 		Connection con = conexion.Conectar();
 		if (con == null) return 0;
@@ -194,10 +176,8 @@ public class maquinasDAO {
 		}
 	}
 
-
-	// ============================================================
 	// DESACTIVAR (alternativa al borrado físico)
-	// ============================================================
+
 	public boolean desactivar(int id) {
 		Connection con = conexion.Conectar();
 		if (con == null) return false;
@@ -213,12 +193,10 @@ public class maquinasDAO {
 		}
 	}
 
-
-	// ============================================================
 	// AUXILIAR: convierte una fila del ResultSet en objeto maquinas
-	// ============================================================
-	private maquinas filaAObjeto(ResultSet rs) throws SQLException {
-		maquinas m = new maquinas();
+
+	private maquina filaAObjeto(ResultSet rs) throws SQLException {
+		maquina m = new maquina();
 		m.setId_maquina(rs.getInt("id_maquina"));
 		m.setNombre(rs.getString("nombre"));
 		m.setTipo(rs.getString("tipo"));
