@@ -1,8 +1,6 @@
 package Objetos;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Alexandru
@@ -152,11 +150,5 @@ public class maquina {
 				+ fecha_compra + ", estado=" + estado + ", qr_code=" + qr_code + ", proveedor_id=" + proveedor_id
 				+ ", activa=" + activa + ", fecha_registro=" + fecha_registro + "]";
 	}
-
-	
-
-
-
-
 	
 }
