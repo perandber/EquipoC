@@ -32,4 +32,5 @@ public abstract class interfaces {
 	/** Modificar un objeto existente
 	 * @return false si fallo*/
 	protected abstract boolean Modificar();
+
 }
