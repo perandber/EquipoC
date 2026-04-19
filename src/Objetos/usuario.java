@@ -1,27 +1,14 @@
 package Objetos;
 
-import Comun.interfaces;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import DAO.usuariosDAO;
+import java.util.Date;
 
 /**
- * Clase Objeto + Menú para la tabla "usuarios".
- * 
- * NOTA sobre contraseñas:
- *   La aplicación web guarda contraseñas con BCrypt (PHP).
- *   Aquí en Java, si quieres compatibilidad, añade la librería jBCrypt
- *   y cambia la línea marcada con "MODO DEMO" en este archivo.
- * 
  * @author Alexandru
  */
 public class usuario {
 
-	// Propiedades 
+	// Propiedades (columnas de la tabla)
+
 	private int       id_usuario;
 	private String    nombre;
 	private String    apellidos;
@@ -32,9 +19,11 @@ public class usuario {
 	private Date fecha_creacion;
 	private Date ultimo_acceso;
 
-	//Constructores 
+
+	// Constructores
+
 	public usuario() {
-		
+
 	}
 
 	public usuario(int id_usuario, String nombre, String apellidos, String email, String password_hash, String rol,
@@ -51,8 +40,9 @@ public class usuario {
 		this.ultimo_acceso = ultimo_acceso;
 	}
 
-	// Getters y Setters 
-	
+
+	// Getters y Setters
+
 	public int getId_usuario() {
 		return id_usuario;
 	}
@@ -125,12 +115,12 @@ public class usuario {
 		this.ultimo_acceso = ultimo_acceso;
 	}
 
-
 	@Override
 	public String toString() {
 		return "usuario [id_usuario=" + id_usuario + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email="
 				+ email + ", password_hash=" + password_hash + ", rol=" + rol + ", activo=" + activo
 				+ ", fecha_creacion=" + fecha_creacion + ", ultimo_acceso=" + ultimo_acceso + "]";
 	}
-	
+
+
 }

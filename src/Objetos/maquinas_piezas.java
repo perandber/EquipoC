@@ -11,6 +11,6 @@ import DAO.maquinas_piezasDAO;
 /**
  * @author Cristian
  */
-public class maquinas_piezas extends interfaces {
+public class maquinas_piezas {
 
 }

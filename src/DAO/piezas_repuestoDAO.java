@@ -22,7 +22,7 @@ public class piezas_repuestoDAO extends interfaces {
 
 	/** Menu para mostrar al usuario todas las opciones disponibles */
 	@Override
-	public void Menu() {
+	public  void Menu() {
 		boolean bucle = true;
 		int opcion;
 
