@@ -136,15 +136,15 @@ public class tareas_ejecutadasDAO extends interfaces{
 				int tiempo = rs.getInt(6);
 				
 				//Asignar ejecucion basado en la clave principal recibida
-				ejecuciones_mantenimiento ejecucion;
-				for (ejecuciones_mantenimiento ejecuionTest : tareas) {
-					if (ejecuionTest.getId() == id) {
+				ejecuciones_mantenimiento ejecucion = null;
+				for (ejecuciones_mantenimiento ejecuionTest : ejecuciones) {
+					if (ejecuionTest.getId_ejecucion() == idEjecucion) {
 						ejecucion = ejecuionTest;
 					}
 				}
 				
 				//Asignar tarea de mantenimineto basado en la clave principal recibida
-				tareas_mantenimiento tareaM;
+				tareas_mantenimiento tareaM = null;
 				for (tareas_mantenimiento manTest : manteniminetos) {
 					if (manTest.getId() == id) {
 						tareaM = manTest;
@@ -232,7 +232,7 @@ public class tareas_ejecutadasDAO extends interfaces{
 				stat = con.createStatement();
 				stat.executeUpdate("insert into tareas_ejecutadas"
 						+ " (id_tarea_ejecutada, id_ejecucion, id_tarea, completada, observaciones, tiempo_empleado)"
-						+ " ("+id+", "+ejecucion.getId()+", "+tarea.getId()+", "+completada+", '"+observaciones+"', "+tiempo+")");
+						+ " ("+id+", "+ejecucion.getId_ejecucion()+", "+tarea.getId()+", "+completada+", '"+observaciones+"', "+tiempo+")");
 			} catch(SQLException e) {
 				System.out.println("Error al insertar datos en la base de datos externa");
 			} finally {
@@ -251,6 +251,7 @@ public class tareas_ejecutadasDAO extends interfaces{
 } else {
 	System.out.print("Error respecto a los datos introducidos");
 }
+        return true;
 	}
 
 	@Override
@@ -386,7 +387,7 @@ public class tareas_ejecutadasDAO extends interfaces{
         try {
         	stat = con.createStatement();
         	stat.executeUpdate("update tareas_ejecutadas"
-        			+ " set id_ejecucion = "+ejecucion.getId()+", id_tarea = "+tareaM.getId()+","
+        			+ " set id_ejecucion = "+ejecucion.getId_ejecucion()+", id_tarea = "+tareaM.getId()+","
         			+ " completada = "+completada+", observaciones = '"+observaciones+"', tiempo_empleado = "+tiempo+""
         			+ " where id_tarea_ejecutada = "+tarea.getId()+"");
         	System.out.println("Modificacion exitosa");
@@ -523,7 +524,7 @@ public class tareas_ejecutadasDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe una ejecucion con la clave principal
 			for (ejecuciones_mantenimiento ejecucionTest : ejecuciones) {
-				if (ejecucionTest.getId() == idEjecucion) {
+				if (ejecucionTest.getId_ejecucion() == idEjecucion) {
 					//Asignar ejecucion que tenga la id introducida
 					ejecucion = ejecucionTest;
 					repetir = false;

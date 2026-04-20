@@ -127,7 +127,7 @@ public class tareas_proyectoDAO extends interfaces{
 				//Asignar proyecto basado en la clave principal recibida
 				proyectos_gantt proyecto = null;
 				for (proyectos_gantt proyectoTest : proyectos) {
-					if (proyectoTest.getId() == idProyecto) {
+					if (proyectoTest.getIdProyecto() == idProyecto) {
 						proyecto = proyectoTest;
 					}
 				}
@@ -135,7 +135,7 @@ public class tareas_proyectoDAO extends interfaces{
 				//Asignar responsable basado en la clave principal recibida
 				usuario responsable = null;
 				for (usuario usuarioTest : usuariosList) {
-					if (usuarioTest.getId() == idResponsable) {
+					if (usuarioTest.getId_usuario() == idResponsable) {
 						responsable = usuarioTest;
 					}
 				}
@@ -249,7 +249,7 @@ public class tareas_proyectoDAO extends interfaces{
             	stat = con.createStatement();
             	stat.executeUpdate("insert into tareas_proyecto"
             			+ " (id_tarea, id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin, duracion, dependencias, id_responsable, progreso, estado)"
-            			+ " values ("+id+", "+proyecto.getId()+", '"+nombre+"', '"+descripcion+"', '"+fechaInicio+"', '"+fechaFin+"', "+duracion+", '"+dependencias+"', "+responsable.getId()+", "+progreso+", '"+estado+"')");
+            			+ " values ("+id+", "+proyecto.getIdProyecto()+", '"+nombre+"', '"+descripcion+"', '"+fechaInicio+"', '"+fechaFin+"', "+duracion+", '"+dependencias+"', "+responsable.getId_usuario()+", "+progreso+", '"+estado+"')");
             } catch(SQLException e) {
             	System.out.println("Error al insertar datos en la base de datos externa");
             } finally {
@@ -430,9 +430,9 @@ public class tareas_proyectoDAO extends interfaces{
         try {
         	stat = con.createStatement();
         	stat.executeUpdate("update tareas_proyecto"
-        			+ " set id_proyecto = "+proyecto.getId()+", nombre = '"+nombre+"', descripcion = '"+descripcion+"',"
+        			+ " set id_proyecto = "+proyecto.getIdProyecto()+", nombre = '"+nombre+"', descripcion = '"+descripcion+"',"
         			+ " fecha_inicio = '"+fechaInicio+"', fecha_fin = '"+fechaFin+"', duracion = "+duracion+","
-        			+ " dependencias = '"+dependencias+"', id_responsable = "+responsable.getId()+", progreso = "+progreso+", estado = '"+estado+"'"
+        			+ " dependencias = '"+dependencias+"', id_responsable = "+responsable.getId_usuario()+", progreso = "+progreso+", estado = '"+estado+"'"
         			+ " where id_tarea = "+tarea.getId()+"");
         } catch(SQLException e) {
         	System.out.println("Error al modificar datos en la base de datos externa");
@@ -554,7 +554,7 @@ public class tareas_proyectoDAO extends interfaces{
 	
 		int idProyecto = 0;
 		//Variable a devolver
-		proyectos_gantt proyecto;
+		proyectos_gantt proyecto = null;
 		
 		//Repetir el bucle pidiendo al usuario informacion
 		boolean repetir = true;
@@ -578,7 +578,7 @@ public class tareas_proyectoDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe un proyecto con la clave principal
 			for (proyectos_gantt proyectoTest : proyectos) {
-				if (proyectoTest.getId() == idProyecto) {
+				if (proyectoTest.getIdProyecto() == idProyecto) {
 					//Asignar proyecto que tenga la id introducida
 					proyecto = proyectoTest;
 					repetir = false;
@@ -730,7 +730,7 @@ public class tareas_proyectoDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe un usuario con la clave principal
 			for (usuario usuarioTest : usuariosList) {
-				if (usuarioTest.getId() == idUsuario) {
+				if (usuarioTest.getId_usuario() == idUsuario) {
 					//Asignar usuario que tenga la id introducida
 					responsable = usuarioTest;
 					repetir = false;

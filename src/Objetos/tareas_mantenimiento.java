@@ -39,24 +39,19 @@ public class tareas_mantenimiento {
 	@Override
 	public String toString() {
 		String resultado = "id:"+id+" "+descripcion+", orden:"+orden+"\n";
-		if (!instrucciones.isEmpty() &&  instrucciones != null) {
-			resultado.concat("instrucciones: ");
-			resultado.concat(instrucciones);
+		if (instrucciones != null && !instrucciones.isEmpty()) {
+			resultado += "instrucciones: " + instrucciones + "\n";
 		}
 		if (requiereEpi) {
-			resultado.concat("Requerido: ");
-			resultado.concat(episNecesarios);
+			resultado += "Requerido: " + episNecesarios + "\n";
 		}
-		if (!reglasSeguridad.isEmpty() &&  reglasSeguridad != null) {
-			resultado.concat("Reglas de seguridad: ");
-			resultado.concat(reglasSeguridad);
+		if (reglasSeguridad != null && !reglasSeguridad.isEmpty()) {
+			resultado += "Reglas de seguridad: " + reglasSeguridad + "\n";
 		}
-		if (!medioAmbiente.isEmpty() &&  medioAmbiente != null) {
-			resultado.concat("Requisitos de medio ambiente: ");
-			resultado.concat(medioAmbiente);
+		if (medioAmbiente != null && !medioAmbiente.isEmpty()) {
+			resultado += "Requisitos de medio ambiente: " + medioAmbiente + "\n";
 		}
-		resultado.concat("\n"+"plan: ");
-		resultado.concat(plan);
+		resultado += "plan: " + plan;
 		return resultado;
 	}
 	

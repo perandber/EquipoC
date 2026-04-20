@@ -104,7 +104,7 @@ public class tareas_herramientasDAO extends interfaces{
 	}
 
 	@Override
-	public ArrayList<tareas_herramientas> Recibir() {
+	public ArrayList Recibir() {
 		ArrayList<tareas_herramientas> tareasHerr = new ArrayList<tareas_herramientas>();
 		Connection con = conexion.Conectar();
 		Statement stat = null;
@@ -148,7 +148,7 @@ public class tareas_herramientasDAO extends interfaces{
 				//Asignar herramienta basado en la clave principal recibida
 				herramientas herramienta = null;
 				for (herramientas herrTest : herramientasList) {
-					if (herrTest.getId() == idHerramienta) {
+					if (herrTest.getId_herramienta() == idHerramienta) {
 						herramienta = herrTest;
 						break;
 					}
@@ -226,7 +226,7 @@ public class tareas_herramientasDAO extends interfaces{
 				stat = con.createStatement();
 				stat.executeUpdate("insert into tareas_herramientas"
 						+ " (id_tarea, id_herramienta, cantidad)"
-						+ " values ("+tarea.getId()+", "+herramienta.getId()+", "+cantidad+")");
+						+ " values ("+tarea.getId()+", "+herramienta.getId_herramienta()+", "+cantidad+")");
 				System.out.println("Tarea herramienta creada exitosamente");
 			} catch(SQLException e) {
 				System.out.println("Error al insertar datos en la base de datos externa");
@@ -287,7 +287,7 @@ public class tareas_herramientasDAO extends interfaces{
         	try {
             	
             	stat = con.createStatement();
-            	stat.executeUpdate("delete from tareas_herramientas where id_tarea = "+tareaHerr.getTarea().getId()+" and id_herramienta = "+tareaHerr.getHerramienta().getId()+"");
+            	stat.executeUpdate("delete from tareas_herramientas where id_tarea = "+tareaHerr.getTarea().getId()+" and id_herramienta = "+tareaHerr.getHerramienta().getId_herramienta()+"");
             	System.out.println("Borrado exitoso");
             } catch (SQLException e) {
             	System.out.println("Error al borrar datos en la base de datos");
@@ -370,9 +370,9 @@ public class tareas_herramientasDAO extends interfaces{
         try {
         	stat = con.createStatement();
         	stat.executeUpdate("update tareas_herramientas"
-        			+ " set id_tarea = "+tarea.getId()+", id_herramienta = "+herramienta.getId()+","
+        			+ " set id_tarea = "+tarea.getId()+", id_herramienta = "+herramienta.getId_herramienta()+","
         			+ " cantidad = "+cantidad+""
-        			+ " where id_tarea = "+tareaHerr.getTarea().getId()+" and id_herramienta = "+tareaHerr.getHerramienta().getId()+"");
+        			+ " where id_tarea = "+tareaHerr.getTarea().getId()+" and id_herramienta = "+tareaHerr.getHerramienta().getId_herramienta()+"");
         	System.out.println("Modificacion exitosa");
         } catch(SQLException e) {
         	System.out.println("Error al modificar datos en la base de datos externa");
@@ -468,7 +468,7 @@ public class tareas_herramientasDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe una herramienta con la clave principal
 			for (herramientas herrTest : herramientasList) {
-				if (herrTest.getId() == idHerramienta) {
+				if (herrTest.getId_herramienta() == idHerramienta) {
 					//Asignar herramienta que tenga la id introducida
 					herramienta = herrTest;
 					repetir = false;
@@ -530,7 +530,7 @@ public class tareas_herramientasDAO extends interfaces{
 			//Comprobaciones
 			//Comprobar si existe una relacion con estas claves principales
 			for (tareas_herramientas tareaTest : tareas) {
-				if (tareaTest.getTarea().getId() == idTarea && tareaTest.getHerramienta().getId() == idHerramienta) {
+				if (tareaTest.getTarea().getId() == idTarea && tareaTest.getHerramienta().getId_herramienta() == idHerramienta) {
 					//Existe una relacion con esa id
 					tareaHerr = tareaTest;
 					repetir = false;
