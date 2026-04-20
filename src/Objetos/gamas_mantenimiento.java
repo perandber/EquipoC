@@ -32,6 +32,21 @@ public class gamas_mantenimiento {
         this.descripcion = descripcion;
     }
 
+    public int getId_gama() { return id_gama; }
+    public void setId_gama(int id_gama) { this.id_gama = id_gama; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getTipo_mantenimiento() { return tipo_mantenimiento; }
+    public void setTipo_mantenimiento(String tipo_mantenimiento) { this.tipo_mantenimiento = tipo_mantenimiento; }
+
+    public String getTipo_gama() { return tipo_gama; }
+    public void setTipo_gama(String tipo_gama) { this.tipo_gama = tipo_gama; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
     // Representación en texto de la gama para mostrar por consola
     @Override
     public String toString() {

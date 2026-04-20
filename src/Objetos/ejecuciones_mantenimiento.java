@@ -41,6 +41,30 @@ public class ejecuciones_mantenimiento {
         this.resultado = resultado;
     }
 
+    public int getId_ejecucion() { return id_ejecucion; }
+    public void setId_ejecucion(int id_ejecucion) { this.id_ejecucion = id_ejecucion; }
+
+    public int getId_orden() { return id_orden; }
+    public void setId_orden(int id_orden) { this.id_orden = id_orden; }
+
+    public Date getFecha_ejecucion() { return fecha_ejecucion; }
+    public void setFecha_ejecucion(Date fecha_ejecucion) { this.fecha_ejecucion = fecha_ejecucion; }
+
+    public Time getHora_inicio() { return hora_inicio; }
+    public void setHora_inicio(Time hora_inicio) { this.hora_inicio = hora_inicio; }
+
+    public Time getHora_fin() { return hora_fin; }
+    public void setHora_fin(Time hora_fin) { this.hora_fin = hora_fin; }
+
+    public int getId_tecnico() { return id_tecnico; }
+    public void setId_tecnico(int id_tecnico) { this.id_tecnico = id_tecnico; }
+
+    public String getObservaciones() { return observaciones; }
+    public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+
+    public String getResultado() { return resultado; }
+    public void setResultado(String resultado) { this.resultado = resultado; }
+
     // Representación en texto de la ejecución para mostrar por consola
     @Override
     public String toString() {

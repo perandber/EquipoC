@@ -33,20 +33,26 @@ public class herramientas {
         this.activa = activa;
     }
 
-    // Devuelve el ID de la herramienta
-    public int getId_herramienta() {
-        return id_herramienta;
-    }
+    public int getId_herramienta() { return id_herramienta; }
+    public void setId_herramienta(int id_herramienta) { this.id_herramienta = id_herramienta; }
 
-    // Devuelve el nombre de la herramienta
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    // Devuelve el estado actual de la herramienta
-    public String getEstado() {
-        return estado;
-    }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public String getCodigo_interno() { return codigo_interno; }
+    public void setCodigo_interno(String codigo_interno) { this.codigo_interno = codigo_interno; }
+
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+
+    public String getUbicacion() { return ubicacion; }
+    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
+
+    public boolean isActiva() { return activa; }
+    public void setActiva(boolean activa) { this.activa = activa; }
 
     // Representación en texto de la herramienta para mostrar por consola
     @Override

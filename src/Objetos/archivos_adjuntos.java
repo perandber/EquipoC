@@ -31,6 +31,21 @@ public class archivos_adjuntos {
         this.id_usuario_subida = id_usuario_subida;
     }
 
+    public int getId_archivo() { return id_archivo; }
+    public void setId_archivo(int id_archivo) { this.id_archivo = id_archivo; }
+
+    public String getNombre_archivo() { return nombre_archivo; }
+    public void setNombre_archivo(String nombre_archivo) { this.nombre_archivo = nombre_archivo; }
+
+    public String getTipo_referencia() { return tipo_referencia; }
+    public void setTipo_referencia(String tipo_referencia) { this.tipo_referencia = tipo_referencia; }
+
+    public String getRuta_archivo() { return ruta_archivo; }
+    public void setRuta_archivo(String ruta_archivo) { this.ruta_archivo = ruta_archivo; }
+
+    public int getId_usuario_subida() { return id_usuario_subida; }
+    public void setId_usuario_subida(int id_usuario_subida) { this.id_usuario_subida = id_usuario_subida; }
+
     // Representación en texto del archivo para mostrar por consola
     @Override
     public String toString() {
