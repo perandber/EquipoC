@@ -62,33 +62,68 @@ public class ordenes_trabajoDAO extends interfaces {
         System.out.println("Orden creada.");
     }
 
-	@Override
-	public boolean Mostrar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean Mostrar() {
+        try (Connection c = con.Conectar()) {
+            listar(c);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al mostrar: " + e.getMessage());
+            return false;
+        }
+    }
 
-	@Override
-	public ArrayList<Object> Recibir() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ArrayList<Object> Recibir() {
+        ArrayList<Object> lista = new ArrayList<>();
+        String sql = "SELECT * FROM ordenes_trabajo";
+        try (Connection c = con.Conectar(); Statement st = c.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                // Aquí podrías añadir un objeto Orden si tuvieras la entidad definida
+                lista.add("ID: " + rs.getInt("id") + " - " + rs.getString("descripcion"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al recibir datos: " + e.getMessage());
+        }
+        return lista;
+    }
 
-	@Override
-	protected boolean Crear() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    protected boolean Crear() {
+        try (Connection c = con.Conectar()) {
+            crear(c);
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 
-	@Override
-	protected boolean Borrar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    protected boolean Borrar() {
+        System.out.print("ID de la orden a borrar: ");
+        int id = Integer.parseInt(sc.nextLine());
+        String sql = "DELETE FROM ordenes_trabajo WHERE id = ?";
+        try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 
-	@Override
-	protected boolean Modificar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    protected boolean Modificar() {
+       System.out.print("ID de la orden a modificar: ");
+       int id = Integer.parseInt(sc.nextLine());
+       System.out.print("Nueva descripción: ");
+       String desc = sc.nextLine();
+       String sql = "UPDATE ordenes_trabajo SET descripcion = ? WHERE id = ?";
+       try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
+           ps.setString(1, desc);
+           ps.setInt(2, id);
+           return ps.executeUpdate() > 0;
+       } catch (SQLException e) {
+           return false;
+       }
+    }
 }
