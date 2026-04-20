@@ -12,6 +12,9 @@ public class pedidos_detalleDAO extends interfaces {
     private conexion con = new conexion();
     private Scanner sc = new Scanner(System.in);
 
+	/**
+    * Menú para consultar o añadir líneas de detalle a pedidos existentes.
+    */
     @Override
     public void Menu() {
         System.out.println("\n--- DETALLES DE PEDIDO ---");

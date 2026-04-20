@@ -11,6 +11,10 @@ public class ordenes_trabajoDAO extends interfaces {
     private conexion con = new conexion();
     private Scanner sc = new Scanner(System.in);
 
+	/**
+    * Interfaz de usuario por consola para gestionar las órdenes de trabajo.
+    */
+
     @Override
     public void Menu() {
         System.out.println("\n--- ÓRDENES DE TRABAJO ---");
@@ -27,6 +31,12 @@ public class ordenes_trabajoDAO extends interfaces {
         }
     }
 
+	/**
+    * Obtiene y despliega por consola el listado completo de órdenes registradas.
+    * @param c Conexión proporcionada por el pool o clase conexion.
+    * @throws SQLException Error al leer la tabla 'ordenes_trabajo'.
+    */
+
     private void listar(Connection c) throws SQLException {
         String sql = "SELECT * FROM ordenes_trabajo";
         ResultSet rs = c.createStatement().executeQuery(sql);
@@ -35,6 +45,12 @@ public class ordenes_trabajoDAO extends interfaces {
         }
     }
 
+	/**
+    * Inserta una nueva orden de trabajo solicitando la descripción al usuario.
+    * @param c Conexión activa.
+    * @throws SQLException Error en la inserción de datos.
+    */
+   
     private void crear(Connection c) throws SQLException {
         System.out.print("Descripción de la orden: ");
         String desc = sc.nextLine();

@@ -11,6 +11,9 @@ public class pedidos_compraDAO extends interfaces {
     private conexion con = new conexion();
     private Scanner sc = new Scanner(System.in);
 
+	/**
+    * Menú principal para la gestión de cabeceras de pedidos.
+    */
     @Override
     public void Menu() {
         System.out.println("\n--- PEDIDOS DE COMPRA ---");
