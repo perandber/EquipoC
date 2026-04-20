@@ -39,7 +39,7 @@ public class ordenes_trabajoDAO extends interfaces {
     public boolean Mostrar() {
         try (Connection c = con.Conectar()) {
             if (c != null) {
-                this.listar(c); // Aquí es donde daba el error
+                this.listar(c);
                 return true;
             }
             return false;
@@ -89,7 +89,7 @@ public class ordenes_trabajoDAO extends interfaces {
     public boolean Crear() {
         try (Connection c = con.Conectar()) {
             if (c != null) {
-                this.crear(c); // Llama al método de abajo
+                this.crear(c);
                 return true;
             }
             return false;
