@@ -34,4 +34,34 @@ public class pedidos_detalleDAO extends interfaces {
             }
         } catch (Exception e) { System.out.println("Error: " + e.getMessage()); }
     }
+
+	@Override
+	public boolean Mostrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Object> Recibir() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected boolean Crear() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Borrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Modificar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import Comun.conexion;
 import Comun.interfaces;
@@ -29,4 +30,34 @@ public class pedidos_compraDAO extends interfaces {
             }
         } catch (Exception e) { System.out.println("Error: " + e.getMessage()); }
     }
+
+	@Override
+	public boolean Mostrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Object> Recibir() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected boolean Crear() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Borrar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Modificar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
