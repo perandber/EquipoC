@@ -1,26 +1,14 @@
 package Objetos;
 
-import Comun.interfaces;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import DAO.usuariosDAO;
+import java.util.Date;
 
 /**
- * Clase Objeto + Menú para la tabla "usuarios".
- * 
- * NOTA sobre contraseñas:
- *   La aplicación web guarda contraseñas con BCrypt (PHP).
- *   Aquí en Java, si quieres compatibilidad, añade la librería jBCrypt
- *   y cambia la línea marcada con "MODO DEMO" en este archivo.
- * 
  * @author Alexandru
  */
-public class usuario extends interfaces {
+public class usuario {
 
-	// ── Propiedades ──────────────────────────────────────────
+	// Propiedades (columnas de la tabla)
+
 	private int       id_usuario;
 	private String    nombre;
 	private String    apellidos;
@@ -28,19 +16,18 @@ public class usuario extends interfaces {
 	private String    password_hash;   // NUNCA se muestra
 	private String    rol;             // 'tecnico' o 'responsable'
 	private boolean   activo;
-	private Timestamp fecha_creacion;
-	private Timestamp ultimo_acceso;
-
-	
+	private Date fecha_creacion;
+	private Date ultimo_acceso;
 
 
-	//Constructores 
+	// Constructores
+
 	public usuario() {
-		
+
 	}
 
 	public usuario(int id_usuario, String nombre, String apellidos, String email, String password_hash, String rol,
-			boolean activo, Timestamp fecha_creacion, Timestamp ultimo_acceso) {
+			boolean activo, Date fecha_creacion, Date ultimo_acceso) {
 		super();
 		this.id_usuario = id_usuario;
 		this.nombre = nombre;
@@ -54,10 +41,8 @@ public class usuario extends interfaces {
 	}
 
 
+	// Getters y Setters
 
-
-	// Getters y Setters 
-	
 	public int getId_usuario() {
 		return id_usuario;
 	}
@@ -114,73 +99,28 @@ public class usuario extends interfaces {
 		this.activo = activo;
 	}
 
-	public Timestamp getFecha_creacion() {
+	public Date getFecha_creacion() {
 		return fecha_creacion;
 	}
 
-	public void setFecha_creacion(Timestamp fecha_creacion) {
+	public void setFecha_creacion(Date fecha_creacion) {
 		this.fecha_creacion = fecha_creacion;
 	}
 
-	public Timestamp getUltimo_acceso() {
+	public Date getUltimo_acceso() {
 		return ultimo_acceso;
 	}
 
-	public void setUltimo_acceso(Timestamp ultimo_acceso) {
+	public void setUltimo_acceso(Date ultimo_acceso) {
 		this.ultimo_acceso = ultimo_acceso;
 	}
 
 	@Override
 	public String toString() {
-		return String.format(
-			"[%d] %s %s | Email: %s | Rol: %s | Activo: %s | Último acceso: %s",
-			id_usuario,
-			nombre != null ? nombre : "",
-			apellidos != null ? apellidos : "",
-			email != null ? email : "",
-			rol != null ? rol : "",
-			activo ? "Sí" : "No",
-			ultimo_acceso != null ? ultimo_acceso.toString() : "Nunca"
-		);
-	}
-
-	@Override
-	public void Menu() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean Mostrar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public ArrayList<Object> Recibir() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected boolean Crear() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean Borrar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean Modificar() {
-		// TODO Auto-generated method stub
-		return false;
+		return "usuario [id_usuario=" + id_usuario + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email="
+				+ email + ", password_hash=" + password_hash + ", rol=" + rol + ", activo=" + activo
+				+ ", fecha_creacion=" + fecha_creacion + ", ultimo_acceso=" + ultimo_acceso + "]";
 	}
 
 
-
-	
 }

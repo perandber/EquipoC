@@ -100,6 +100,7 @@ public class principal {
 				//Salir
 				bucle = false;
 				System.out.println("Saliendo del programa");
+			break;
 			case 1:
 				archivos.Menu();
 			break;
