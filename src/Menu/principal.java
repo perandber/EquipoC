@@ -34,7 +34,7 @@ public class principal {
 	static Scanner sc = new Scanner (System.in); //Crear escaner
 	
 	
-	public static void main(String[] args) {
+	public void menu() {
 		maquinasDAO maquina = new maquinasDAO();
 		piezas_repuestoDAO repuesto = new piezas_repuestoDAO();
 		proveedores_maquinasDAO proveedores = new proveedores_maquinasDAO();
