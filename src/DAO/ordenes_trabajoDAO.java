@@ -32,54 +32,47 @@ public class ordenes_trabajoDAO extends interfaces {
         }
     }
 
-	/**
-    * Obtiene y despliega por consola el listado completo de órdenes registradas.
-    * @param c Conexión proporcionada por el pool o clase conexion.
-    * @throws SQLException Error al leer la tabla 'ordenes_trabajo'.
-    */
-
-    private void listar(Connection c) throws SQLException {
-        String sql = "SELECT * FROM ordenes_trabajo";
-        ResultSet rs = c.createStatement().executeQuery(sql);
-        while (rs.next()) {
-            System.out.println("ID: " + rs.getInt("id") + " | Desc: " + rs.getString("descripcion"));
-        }
-    }
-
-	/**
-    * Inserta una nueva orden de trabajo solicitando la descripción al usuario.
-    * @param c Conexión activa.
-    * @throws SQLException Error en la inserción de datos.
-    */
-   
-    private void crear(Connection c) throws SQLException {
-        System.out.print("Descripción de la orden: ");
-        String desc = sc.nextLine();
-        String sql = "INSERT INTO ordenes_trabajo (descripcion) VALUES (?)";
-        PreparedStatement ps = c.prepareStatement(sql);
-        ps.setString(1, desc);
-        ps.executeUpdate();
-        System.out.println("Orden creada.");
-    }
-
+    /**
+     * Implementación del método de la interfaz para mostrar datos.
+     */
     @Override
     public boolean Mostrar() {
         try (Connection c = con.Conectar()) {
-            listar(c);
-            return true;
+            if (c != null) {
+                this.listar(c); // Aquí es donde daba el error
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
-            System.out.println("Error al mostrar: " + e.getMessage());
+            System.err.println("Error al conectar: " + e.getMessage());
             return false;
         }
     }
 
+    /**
+     * MÉTODO QUE FALTA: Este es el que el IDE te pide crear.
+     * @param c Conexión activa.
+     * @throws SQLException Si falla la consulta.
+     */
+    private void listar(Connection c) throws SQLException {
+        String sql = "SELECT * FROM ordenes_trabajo";
+        try (Statement st = c.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") + " | Desc: " + rs.getString("descripcion"));
+            }
+        }
+    }
+
+    /**
+     * Recupera todos los registros de la tabla ordenes_trabajo.
+     * @return ArrayList de objetos con la descripción e ID de las órdenes.
+     */
     @Override
     public ArrayList<Object> Recibir() {
         ArrayList<Object> lista = new ArrayList<>();
         String sql = "SELECT * FROM ordenes_trabajo";
         try (Connection c = con.Conectar(); Statement st = c.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                // Aquí podrías añadir un objeto Orden si tuvieras la entidad definida
                 lista.add("ID: " + rs.getInt("id") + " - " + rs.getString("descripcion"));
             }
         } catch (SQLException e) {
@@ -88,16 +81,46 @@ public class ordenes_trabajoDAO extends interfaces {
         return lista;
     }
 
+    /**
+     * Ejecuta el proceso de creación de una nueva orden.
+     * @return true si se insertó correctamente.
+     */
     @Override
-    protected boolean Crear() {
+    public boolean Crear() {
         try (Connection c = con.Conectar()) {
-            crear(c);
-            return true;
+            if (c != null) {
+                this.crear(c); // Llama al método de abajo
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
+            System.err.println("Error de SQL: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
             return false;
         }
     }
 
+    /**
+     * Método auxiliar privado que contiene la lógica SQL de inserción.
+     * @param c Conexión activa.
+     * @throws SQLException Si hay un error en la base de datos.
+     */
+    private void crear(Connection c) throws SQLException {
+        System.out.print("Descripción de la orden: ");
+        String desc = sc.nextLine();
+        String sql = "INSERT INTO ordenes_trabajo (descripcion) VALUES (?)";
+        try (PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, desc);
+            ps.executeUpdate();
+            System.out.println("Orden creada con éxito.");
+        }
+    }
+
+    /**
+     * Elimina una orden de trabajo específica mediante su ID.
+     * @return true si se eliminó al menos un registro.
+     */
     @Override
     protected boolean Borrar() {
         System.out.print("ID de la orden a borrar: ");
@@ -111,19 +134,23 @@ public class ordenes_trabajoDAO extends interfaces {
         }
     }
 
+    /**
+     * Actualiza la descripción de una orden existente.
+     * @return true si la actualización fue exitosa.
+     */
     @Override
     protected boolean Modificar() {
-       System.out.print("ID de la orden a modificar: ");
-       int id = Integer.parseInt(sc.nextLine());
-       System.out.print("Nueva descripción: ");
-       String desc = sc.nextLine();
-       String sql = "UPDATE ordenes_trabajo SET descripcion = ? WHERE id = ?";
-       try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
-           ps.setString(1, desc);
-           ps.setInt(2, id);
-           return ps.executeUpdate() > 0;
-       } catch (SQLException e) {
-           return false;
-       }
+        System.out.print("ID de la orden a modificar: ");
+        int id = Integer.parseInt(sc.nextLine());
+        System.out.print("Nueva descripción: ");
+        String desc = sc.nextLine();
+        String sql = "UPDATE ordenes_trabajo SET descripcion = ? WHERE id = ?";
+        try (Connection c = con.Conectar(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, desc);
+            ps.setInt(2, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }

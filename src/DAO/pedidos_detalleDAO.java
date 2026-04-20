@@ -34,7 +34,7 @@ public class pedidos_detalleDAO extends interfaces {
             }
         } catch (Exception e) { System.out.println("Error: " + e.getMessage()); }
     }
-
+    
     /**
      * Filtra y muestra los artículos pertenecientes a un pedido específico.
      * @return true si la consulta por ID fue exitosa.

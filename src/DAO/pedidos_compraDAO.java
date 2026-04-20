@@ -30,7 +30,7 @@ public class pedidos_compraDAO extends interfaces {
             }
         } catch (Exception e) { System.out.println("Error: " + e.getMessage()); }
     }
-
+    
     /**
      * Lista todas las cabeceras de pedidos registradas en el sistema.
      * @return true si la consulta se ejecutó correctamente.
