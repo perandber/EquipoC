@@ -10,11 +10,11 @@ public class conexion {
 
     //Base de datos
     /**[Tipo de base de datos] :// [direccion ip del servidor] : [puerto] / [nombre de base de datos]*/
-    final private static String dir = "jdbc:mariadb://172.18.50.57:3306/intermodular";
+    final private static String dir = "jdbc:mysql://localhost:3306/gestiontaller";
     /**nombre de usario a usar*/
-    final private static String user = "admin";
+    final private static String user = "root";
     /**contraseña de usario a usar*/
-    final private static String pwd = "Perceval1";  
+    final private static String pwd = "";  
     
 	public static Connection Conectar() {
 		Connection conexion = null;
